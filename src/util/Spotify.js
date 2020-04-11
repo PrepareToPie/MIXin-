@@ -23,19 +23,52 @@ const Spotify = {
                 Authorization: `Bearer ${accessToken}`
             }
         }).then(response => response.json())
-        .then(jsonResponse => {
-            if(jsonResponse){
-                return jsonResponse.map(track => ({
-                    id: track.id,
-                    name: track.name,
-                    artist: track.artists[0].name,
-                    album: track.album.name,
-                    uri: track.uri
-                }))
-            } else {
-                return [];
+            .then(jsonResponse => {
+                if (jsonResponse) {
+                    return jsonResponse.map(track => ({
+                        id: track.id,
+                        name: track.name,
+                        artist: track.artists[0].name,
+                        album: track.album.name,
+                        uri: track.uri
+                    }))
+                } else {
+                    return [];
+                }
+            })
+    },
+    savePlaylist(playlistName, trackURIs) {
+        if (playlistName && trackURIs) {
+            let headers = {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
             }
-        })
+            let userID = '';
+            let playlistID = '';
+            // A request that returns the user’s Spotify username
+            fetch('https://api.spotify.com/v1/me', { headers: headers })
+                // Convert the response to JSON and save the response id parameter to the user’s ID
+                .then(response => response.json())
+                .then(jsonResponse => { userID = jsonResponse.id });
+            // Use the returned user ID to make a POST request that creates a new playlist in the user’s account and returns a playlist ID
+            fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
+                method: 'POST',
+                headers: headers,
+                body: {
+                    name: playlistName
+                }
+            }).then(response => response.json())
+                .then(jsonResponse => { playlistID = jsonResponse.id });
+            // Use the returned user ID to make a POST request that creates a new playlist in the user’s account and returns a playlist ID.
+            fetch(`https://api.spotify.com/v1/playlists/${playlistID}/tracks`, {
+                method: 'POST',
+                headers: headers,
+                body: {
+                    uris: JSON.stringify(trackURIs)
+                }
+            }).then(response => response.json())
+                .then(jsonResponse => { playlistID = jsonResponse.id });
+        }
     }
 };
 

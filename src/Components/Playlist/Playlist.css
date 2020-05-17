@@ -40,6 +40,10 @@
   background-color: rgba(108, 65, 233, .7);
 }
 
+.Saving {
+  margin: 2rem;
+}
+
 ::-webkit-scrollbar {
     width: 0px;
     background: transparent;

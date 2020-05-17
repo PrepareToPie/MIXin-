@@ -17,8 +17,7 @@ const Spotify = {
             window.setTimeout(() => accessToken = '', expiresIn * 1000);
             window.history.pushState('Access Token', null, '/');
             return accessToken;
-        }
-        else {
+        } else {
             window.location.href = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`;
         }
     },
@@ -36,7 +35,8 @@ const Spotify = {
                         name: track.name,
                         artist: track.artists[0].name,
                         album: track.album.name,
-                        uri: track.uri
+                        uri: track.uri,
+                        preview_url: track.preview_url
                     }));
                 } else {
                     return [];
@@ -51,7 +51,7 @@ const Spotify = {
                 'Content-Type': 'application/json'
             }
             // A request that returns the user’s Spotify username
-            return fetch('https://api.spotify.com/v1/me', { headers: headers })
+            return fetch('https://api.spotify.com/v1/me', {headers: headers})
                 // Convert the response to JSON and save the response id parameter to the user’s ID
                 .then(response => response.json())
                 .then(jsonResponse => {
@@ -60,17 +60,20 @@ const Spotify = {
                     return fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
                         method: 'POST',
                         headers: headers,
-                        body: JSON.stringify({ name: playlistName })
+                        body: JSON.stringify({name: playlistName})
                     }).then(response => response.json())
                         .then(jsonResponse => {
-                            let playlistID; playlistID = jsonResponse.id
+                            let playlistID;
+                            playlistID = jsonResponse.id
                             // Use the returned user ID to make a POST request that creates a new playlist in the user’s account and returns a playlist ID.
                             return fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
                                 method: 'POST',
                                 headers: headers,
-                                body: JSON.stringify({ uris: trackURIs })
+                                body: JSON.stringify({uris: trackURIs})
                             }).then(response => response.json())
-                                .then(jsonResponse => { playlistID = jsonResponse.id });
+                                .then(jsonResponse => {
+                                    playlistID = jsonResponse.id
+                                });
                         });
                 });
         }

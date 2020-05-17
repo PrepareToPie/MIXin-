@@ -23,7 +23,9 @@ class App extends React.Component {
 
     search(term) {
         Spotify.search(term).then(searchResults => {
-            this.setState({searchResults: searchResults});
+            let playlistTrackIds = this.state.playlistTracks.map(track => track.id);
+            let searchResultsToSet = searchResults.filter(result => playlistTrackIds.indexOf(result.id) === -1);
+            this.setState({searchResults: searchResultsToSet});
         });
     }
 
@@ -31,7 +33,9 @@ class App extends React.Component {
         if (!this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
             let updatedPlaylistTracks = this.state.playlistTracks;
             updatedPlaylistTracks.push(track);
-            this.setState({playlistTracks: updatedPlaylistTracks});
+            let updatedSearchResults = this.state.searchResults;
+            updatedSearchResults.splice(this.state.searchResults.indexOf(track), 1);
+            this.setState({playlistTracks: updatedPlaylistTracks, searchResults: updatedSearchResults});
         }
     }
 
@@ -39,7 +43,9 @@ class App extends React.Component {
         if (this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
             let updatedPlaylistTracks = this.state.playlistTracks;
             updatedPlaylistTracks.splice(this.state.playlistTracks.indexOf(track), 1);
-            this.setState({playlistTracks: updatedPlaylistTracks});
+            let updatedSearchResults = this.state.searchResults;
+            updatedSearchResults.unshift(track);
+            this.setState({playlistTracks: updatedPlaylistTracks, searchResults: updatedSearchResults});
         }
     }
 

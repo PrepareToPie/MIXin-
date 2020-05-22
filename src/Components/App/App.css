@@ -31,10 +31,16 @@ h2 {
   height: 100%;
   padding: 0 10% 10% 10%;
   /*background-image: url('./background_photo_desktop.jpg');*/
-  background: linear-gradient(to left bottom, #6c41ec, #000000) right top;
+  max-width: 1000px;
+  margin: 0 auto;
+  /*background: linear-gradient(to left bottom, #6c41ec, #000000) right top;*/
   font-family: 'Work Sans', sans-serif;
   font-weight: 500;
   color: #fff;
+}
+
+.App-container {
+  background: linear-gradient(to left bottom, #6c41ec, #000000) right top;
 }
 
 .App-playlist {

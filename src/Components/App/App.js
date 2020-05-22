@@ -14,7 +14,6 @@ class App extends React.Component {
             playlistName: 'My Playlist',
             playlistTracks: [],
             playlistSaving: false,
-            playingTracks: [],
             currentlyPlayingTrack: ''
         };
         this.addTrack = this.addTrack.bind(this);
@@ -27,6 +26,9 @@ class App extends React.Component {
     }
 
     search(term) {
+        if(this.state.currentlyPlayingTrack) {
+            this.pauseTrack();
+        }
         Spotify.search(term).then(searchResults => {
             let playlistTrackIds = this.state.playlistTracks.map(track => track.id);
             let searchResultsToSet = searchResults.filter(result => playlistTrackIds.indexOf(result.id) === -1);
@@ -64,8 +66,14 @@ class App extends React.Component {
     }
 
     pauseTrack(track) {
-        this.setState({currentlyPlayingTrack: ''});
-        track.audio.pause();
+        if(track){
+            track.audio.pause();
+            this.setState({currentlyPlayingTrack: ''});
+        } else {
+            let playingTrack = this.state.playlistTracks.find(playlistTrack => this.state.currentlyPlayingTrack === playlistTrack.id) || this.state.searchResults.find(searchResult => this.state.currentlyPlayingTrack === searchResult.id);
+            playingTrack.audio.pause();
+            this.setState({currentlyPlayingTrack: ''});
+        }
     }
 
     updatePlaylistName(name) {
@@ -88,7 +96,7 @@ class App extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="App-container">
                 <h1>ja<span className="highlight">mmm</span>ing</h1>
                 <div className="App">
                     <SearchBar onSearch={this.search}/>

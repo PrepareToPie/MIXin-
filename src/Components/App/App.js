@@ -59,8 +59,8 @@ class App extends React.Component {
             let playingTrack = this.state.playlistTracks.find(playlistTrack => this.state.currentlyPlayingTrack === playlistTrack.id) || this.state.searchResults.find(searchResult => this.state.currentlyPlayingTrack === searchResult.id);
             this.pauseTrack(playingTrack);
         }
-        this.setState({currentlyPlayingTrack: track.id});
         track.audio.play();
+        this.setState({currentlyPlayingTrack: track.id});
     }
 
     pauseTrack(track) {

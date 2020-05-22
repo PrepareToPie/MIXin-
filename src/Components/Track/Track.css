@@ -1,44 +1,49 @@
 .Track {
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid rgba(256, 256, 256, 0.8);
-  background: linear-gradient(to right, rgba(108, 65, 233, .7) 50%, hsla(0, 0%, 16%, 0) 50%) right bottom;
-  background-size: 200% 100%;
-  transition: background-position 2s linear;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(256, 256, 256, 0.8);
+    background-size: 200% 100%;
+    transition: color .1s ease;
+    cursor: default;
 }
 
 .Track:hover {
-  background-position: left bottom;
+    color: #6c41ec;
+}
+
+.Track-play {
+    display: flex;
+    align-items: center;
 }
 
 .Track-action {
-  cursor: pointer;
-  padding: .5rem;
-  font-size: 1.05rem;
-  transition: color .25s;
-  border: 0;
-  background-color: rgba(0, 0, 0, 0);
-  color: #fff;
+    cursor: pointer;
+    padding: .5rem;
+    font-size: 1.05rem;
+    transition: color .25s;
+    border: 0;
+    background-color: rgba(0, 0, 0, 0);
+    color: #fff;
 }
 
 .Track-action:hover {
-  color: rgba(265, 265, 265, .5);
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .Track-information {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 72px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 72px;
 }
 
 .Track-information h3 {
-  margin-bottom: .22rem;
+    margin-bottom: .22rem;
 }
 
 .Track-information p {
-  font-size: .83rem;
-  font-weight: 300;
-  color: rgba(256, 256, 256, 0.8);
+    font-size: .83rem;
+    font-weight: 300;
+    color: rgba(256, 256, 256, 0.8);
 }

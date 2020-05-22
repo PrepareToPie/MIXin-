@@ -19,6 +19,7 @@
 
 .SearchBar input:focus {
   outline: none;
+  border: rgba(108, 65, 233, .7);
 }
 
 .SearchButton {
@@ -30,7 +31,7 @@
   text-align: center;
   font-size: .833rem;
   transition: background-color .25s;
-  border: 0px;
+  border: 0;
   color: #fff;
   font-weight: 500;
 }

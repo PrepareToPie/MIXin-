@@ -1,27 +1,22 @@
 import React from 'react';
 import './Track.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faPause, faPlay} from '@fortawesome/free-solid-svg-icons';
+import {faPause, faPlay, faPlus, faMinus} from '@fortawesome/free-solid-svg-icons';
 
 export class Track extends React.Component {
     renderAction() {
-        return this.props.isRemoval ? <button className="Track-action" onClick={this.removeTrack}>-</button> :
-            <button className="Track-action" onClick={this.addTrack}>+</button>;
+        return this.props.isRemoval ? <FontAwesomeIcon icon={faMinus} className="Track-action" onClick={this.removeTrack}/> :
+            <FontAwesomeIcon icon={faPlus} className="Track-action" onClick={this.addTrack}/>;
     }
 
     renderPlay() {
-        return this.state.isPlayed ?
+        return this.props.isPlaying ?
             <FontAwesomeIcon onClick={this.pauseTrack} icon={faPause} className="Track-action"/> :
             <FontAwesomeIcon onClick={this.playTrack} icon={faPlay} className="Track-action"/>;
     }
 
     constructor(props) {
         super(props);
-        this.state = {
-            isPlayed: false,
-            url: this.props.track.preview_url
-        };
-        this.audio = new Audio(this.state.url);
         this.addTrack = this.addTrack.bind(this);
         this.removeTrack = this.removeTrack.bind(this);
         this.playTrack = this.playTrack.bind(this);
@@ -37,13 +32,15 @@ export class Track extends React.Component {
     }
 
     playTrack() {
-        this.setState({isPlayed: true});
-        this.audio.play();
+        this.props.onPlay(this.props.track.preview_url);
     }
 
     pauseTrack() {
-        this.setState({isPlayed: false});
-        this.audio.pause();
+        this.props.onPause(this.props.track.preview_url);
+    }
+
+    componentWillUnmount() {
+        this.pauseTrack();
     }
 
     render() {

@@ -13,10 +13,14 @@ class App extends React.Component {
             searchResults: [],
             playlistName: 'My Playlist',
             playlistTracks: [],
-            playlistSaving: false
+            playlistSaving: false,
+            playingTracks: [],
+            currentlyPlaying: ''
         };
         this.addTrack = this.addTrack.bind(this);
         this.removeTrack = this.removeTrack.bind(this);
+        this.playTrack = this.playTrack.bind(this);
+        this.pauseTrack = this.pauseTrack.bind(this);
         this.updatePlaylistName = this.updatePlaylistName.bind(this);
         this.savePlaylist = this.savePlaylist.bind(this);
         this.search = this.search.bind(this);
@@ -50,6 +54,34 @@ class App extends React.Component {
         }
     }
 
+    playTrack(trackUrl) {
+        if (!this.state.playingTracks.find(track => track.src === trackUrl)) {
+            let updatedTracks = this.state.playingTracks;
+            let track = new Audio(trackUrl);
+            updatedTracks.push(track);
+            this.setState({playingTracks: updatedTracks});
+        }
+        this.state.playingTracks.forEach(track => {
+            if (track.src !== trackUrl) {
+                track.pause();
+            } else {
+                track.play();
+            }
+        });
+        this.setState({currentlyPlaying: trackUrl});
+    }
+
+    pauseTrack(trackUrl) {
+        if (this.state.playingTracks) {
+            this.state.playingTracks.forEach(track => {
+                if(track.src === trackUrl) {
+                    track.pause();
+                }
+            })
+            this.setState({currentlyPlaying: ''});
+        }
+    }
+
     updatePlaylistName(name) {
         this.setState({playlistName: name});
     }
@@ -77,14 +109,20 @@ class App extends React.Component {
                     <div className="App-playlist">
                         <SearchResults
                             searchResults={this.state.searchResults}
-                            onAdd={this.addTrack}/>
+                            onAdd={this.addTrack}
+                            onPlay={this.playTrack}
+                            onPause={this.pauseTrack}
+                            playingTrack={this.state.currentlyPlaying}/>
                         <Playlist
                             playlistName={this.state.playlistName}
                             playlistTracks={this.state.playlistTracks}
                             onRemove={this.removeTrack}
                             onNameChange={this.updatePlaylistName}
                             onSave={this.savePlaylist}
-                            playlistSaving={this.state.playlistSaving}/>
+                            playlistSaving={this.state.playlistSaving}
+                            onPlay={this.playTrack}
+                            onPause={this.pauseTrack}
+                            playingTrack={this.state.currentlyPlaying}/>
                     </div>
                 </div>
             </div>

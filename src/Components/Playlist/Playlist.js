@@ -23,7 +23,7 @@ export class Playlist extends React.Component {
         if (this.props.playlistSaving) {
             return (
                 <div className="Playlist">
-                    <FontAwesomeIcon icon={faSpinner} spin pulse size="5x" className="Saving"></FontAwesomeIcon>
+                    <FontAwesomeIcon icon={faSpinner} spin pulse size="5x" className="Saving"/>
                     <p>Saving your playlist</p>
                 </div>
             );
@@ -31,7 +31,12 @@ export class Playlist extends React.Component {
             return (
                 <div className="Playlist">
                     <input defaultValue={'New Playlist'} onChange={this.handleNameChange}/>
-                    <TrackList tracks={this.props.playlistTracks} onRemove={this.props.onRemove} isRemoval={true}/>
+                    <TrackList tracks={this.props.playlistTracks}
+                               onRemove={this.props.onRemove}
+                               isRemoval={true}
+                               onPlay={this.props.onPlay}
+                               onPause={this.props.onPause}
+                               playingTrack={this.props.playingTrack}/>
                     <button className="Playlist-save" onClick={this.props.onSave}>SAVE TO SPOTIFY</button>
                 </div>
             );

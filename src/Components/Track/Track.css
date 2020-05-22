@@ -2,6 +2,13 @@
   display: flex;
   align-items: center;
   border-bottom: 1px solid rgba(256, 256, 256, 0.8);
+  background: linear-gradient(to right, rgba(108, 65, 233, .7) 50%, hsla(0, 0%, 16%, 0) 50%) right bottom;
+  background-size: 200% 100%;
+  transition: background-position 2s linear;
+}
+
+.Track:hover {
+  background-position: left bottom;
 }
 
 .Track-action {
@@ -9,7 +16,7 @@
   padding: .5rem;
   font-size: 1.05rem;
   transition: color .25s;
-  border: 0px;
+  border: 0;
   background-color: rgba(0, 0, 0, 0);
   color: #fff;
 }

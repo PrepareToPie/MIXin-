@@ -14,6 +14,7 @@ class App extends React.Component {
             playlistName: 'My Playlist',
             playlistTracks: [],
             playlistSaving: false,
+            recommendedTracks: [],
             currentlyPlayingTrack: ''
         };
         this.addTrack = this.addTrack.bind(this);
@@ -23,6 +24,7 @@ class App extends React.Component {
         this.updatePlaylistName = this.updatePlaylistName.bind(this);
         this.savePlaylist = this.savePlaylist.bind(this);
         this.search = this.search.bind(this);
+        this.getRecommendations = this.getRecommendations.bind(this);
     }
 
     search(term) {
@@ -33,6 +35,16 @@ class App extends React.Component {
             let playlistTrackIds = this.state.playlistTracks.map(track => track.id);
             let searchResultsToSet = searchResults.filter(result => playlistTrackIds.indexOf(result.id) === -1);
             this.setState({searchResults: searchResultsToSet});
+        });
+    }
+
+    getRecommendations(){
+        if(this.state.currentlyPlayingTrack) {
+            this.pauseTrack();
+        }
+        Spotify.getRecommendations(this.state.playlistTracks.map(track => track.id).toString()).then(recommendations => {
+            this.setState({recommendedTracks: recommendations});
+            console.log(this.state.recommendedTracks);
         });
     }
 
@@ -103,6 +115,7 @@ class App extends React.Component {
                     <div className="App-playlist">
                         <SearchResults
                             searchResults={this.state.searchResults}
+                            recommendedTracks={this.state.recommendedTracks}
                             onAdd={this.addTrack}
                             onPlay={this.playTrack}
                             onPause={this.pauseTrack}
@@ -116,6 +129,7 @@ class App extends React.Component {
                             playlistSaving={this.state.playlistSaving}
                             onPlay={this.playTrack}
                             onPause={this.pauseTrack}
+                            onRecommend={this.getRecommendations}
                             playingTrack={this.state.currentlyPlayingTrack}/>
                     </div>
                 </div>

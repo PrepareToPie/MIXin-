@@ -27,6 +27,7 @@ export class Playlist extends React.Component {
             return (
                 <div className="Playlist">
                     <input defaultValue={'New Playlist'} onChange={this.handleNameChange}/>
+                    <button onClick={this.props.onRecommend}>Recommend me</button>
                     <TrackList tracks={this.props.playlistTracks}
                                onRemove={this.props.onRemove}
                                isRemoval={true}

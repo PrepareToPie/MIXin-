@@ -32,16 +32,16 @@ export class Track extends React.Component {
     }
 
     playTrack() {
-        this.props.onPlay(this.props.track.preview_url);
+        this.props.onPlay(this.props.track);
     }
 
     pauseTrack() {
-        this.props.onPause(this.props.track.preview_url);
+        this.props.onPause(this.props.track);
     }
 
-    componentWillUnmount() {
-        this.pauseTrack();
-    }
+    // componentWillUnmount() {
+    //     this.pauseTrack();
+    // }
 
     render() {
         return (

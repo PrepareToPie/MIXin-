@@ -14,7 +14,7 @@ export class TrackList extends React.Component {
                     isRemoval={this.props.isRemoval}
                     onPlay={this.props.onPlay}
                     onPause={this.props.onPause}
-                    isPlaying={this.props.playingTrack === track.preview_url}/>)}
+                    isPlaying={this.props.playingTrack === track.id}/>)}
             </div>
         );
     }

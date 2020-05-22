@@ -15,7 +15,7 @@ class App extends React.Component {
             playlistTracks: [],
             playlistSaving: false,
             playingTracks: [],
-            currentlyPlaying: ''
+            currentlyPlayingTrack: ''
         };
         this.addTrack = this.addTrack.bind(this);
         this.removeTrack = this.removeTrack.bind(this);
@@ -54,32 +54,18 @@ class App extends React.Component {
         }
     }
 
-    playTrack(trackUrl) {
-        if (!this.state.playingTracks.find(track => track.src === trackUrl)) {
-            let updatedTracks = this.state.playingTracks;
-            let track = new Audio(trackUrl);
-            updatedTracks.push(track);
-            this.setState({playingTracks: updatedTracks});
+    playTrack(track) {
+        if (this.state.currentlyPlayingTrack) {
+            let playingTrack = this.state.playlistTracks.find(playlistTrack => this.state.currentlyPlayingTrack === playlistTrack.id) || this.state.searchResults.find(searchResult => this.state.currentlyPlayingTrack === searchResult.id);
+            this.pauseTrack(playingTrack);
         }
-        this.state.playingTracks.forEach(track => {
-            if (track.src !== trackUrl) {
-                track.pause();
-            } else {
-                track.play();
-            }
-        });
-        this.setState({currentlyPlaying: trackUrl});
+        this.setState({currentlyPlayingTrack: track.id});
+        track.audio.play();
     }
 
-    pauseTrack(trackUrl) {
-        if (this.state.playingTracks) {
-            this.state.playingTracks.forEach(track => {
-                if(track.src === trackUrl) {
-                    track.pause();
-                }
-            })
-            this.setState({currentlyPlaying: ''});
-        }
+    pauseTrack(track) {
+        this.setState({currentlyPlayingTrack: ''});
+        track.audio.pause();
     }
 
     updatePlaylistName(name) {
@@ -112,7 +98,7 @@ class App extends React.Component {
                             onAdd={this.addTrack}
                             onPlay={this.playTrack}
                             onPause={this.pauseTrack}
-                            playingTrack={this.state.currentlyPlaying}/>
+                            playingTrack={this.state.currentlyPlayingTrack}/>
                         <Playlist
                             playlistName={this.state.playlistName}
                             playlistTracks={this.state.playlistTracks}
@@ -122,7 +108,7 @@ class App extends React.Component {
                             playlistSaving={this.state.playlistSaving}
                             onPlay={this.playTrack}
                             onPause={this.pauseTrack}
-                            playingTrack={this.state.currentlyPlaying}/>
+                            playingTrack={this.state.currentlyPlayingTrack}/>
                     </div>
                 </div>
             </div>

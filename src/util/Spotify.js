@@ -36,7 +36,7 @@ const Spotify = {
                         artist: track.artists[0].name,
                         album: track.album.name,
                         uri: track.uri,
-                        preview_url: track.preview_url
+                        audio: new Audio(track.preview_url)
                     }));
                 } else {
                     return [];

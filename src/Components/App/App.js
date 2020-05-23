@@ -38,7 +38,7 @@ class App extends React.Component {
     }
 
     getRecommendations() {
-        this.pauseTrack();
+        this.state.recommendedTracks.forEach(track => track.audio.pause());
         Spotify.getRecommendations(this.state.playlistTracks.map(track => track.id).toString()).then(recommendations => {
             this.setState({recommendedTracks: recommendations});
             console.log(this.state.recommendedTracks);
@@ -97,6 +97,8 @@ class App extends React.Component {
                 playingTrack.audio.pause();
                 this.setState({currentlyPlayingTrack: ''});
             }
+        } else {
+            this.pauseAll();
         }
     }
 
@@ -138,6 +140,7 @@ class App extends React.Component {
                             onAdd={this.addTrack}
                             onPlay={this.playTrack}
                             onPause={this.pauseTrack}
+                            onPauseAll={this.pauseAll}
                             onRecommend={this.getRecommendations}
                             playingTrack={this.state.currentlyPlayingTrack}/>
                         <Playlist

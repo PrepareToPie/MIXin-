@@ -1,0 +1,56 @@
+.Results {
+    width: 50%;
+    max-height: 600px;
+    min-height: 500px;
+    overflow-y: hidden;
+    padding: .88rem .5rem 0 .5rem;
+    background-color: rgba(1, 12, 63, 0.7);
+    box-shadow: 0 4px 2px 2px #000000;
+}
+
+/*.Results-select {*/
+/*    margin: 1rem 0;*/
+/*}*/
+
+.Results ul li {
+    display: inline-block;
+    margin: 1rem;
+    font-family: 'Poppins', sans-serif;
+    color: #6c41ec;
+    cursor: pointer;
+    font-size: 1.55rem;
+}
+
+.Results ul li:hover {
+    opacity: .9;
+}
+
+.active {
+    color: #ffffff !important;
+    cursor: default !important;
+}
+
+.active:hover {
+    opacity: 1 !important;
+}
+
+#recommend{
+    cursor: pointer !important;
+}
+
+@media only screen and (max-width: 1020px) {
+    .Results {
+        width: 90%;
+        margin-bottom: 2rem;
+    }
+}
+
+@media only screen and (max-width: 570px) {
+    .Results ul li {
+        display: inline-block;
+        margin: .5rem 1rem;
+    }
+    .Results-select {
+        margin-bottom: .5rem;
+    }
+}

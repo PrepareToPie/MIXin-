@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Playlist.css';
 import {TrackList} from '../TrackList/TrackList';
+import {PlaylistAction} from './PlaylistAction/PlaylistAction';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSpinner} from '@fortawesome/free-solid-svg-icons';
 
@@ -26,15 +27,14 @@ export class Playlist extends React.Component {
         } else {
             return (
                 <div className="Playlist">
-                    <input defaultValue={'New Playlist'} onChange={this.handleNameChange}/>
-                    <button onClick={this.props.onRecommend}>Recommend me</button>
+                    <input placeholder="Playlist name" onChange={this.handleNameChange}/>
+                    <PlaylistAction onSave={this.props.onSave}/>
                     <TrackList tracks={this.props.playlistTracks}
                                onRemove={this.props.onRemove}
                                isRemoval={true}
                                onPlay={this.props.onPlay}
                                onPause={this.props.onPause}
                                playingTrack={this.props.playingTrack}/>
-                    <button className="Playlist-save" onClick={this.props.onSave}>SAVE TO SPOTIFY</button>
                 </div>
             );
         }

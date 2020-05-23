@@ -2,14 +2,21 @@
     display: flex;
     align-items: center;
     border-bottom: 1px solid rgba(256, 256, 256, 0.8);
-    background-size: 200% 100%;
-    transition: color .1s ease;
+    transition: background-color .1s ease;
     cursor: default;
 }
 
 .Track:hover {
-    color: #6c41ec;
+    background-color: rgba(1, 12, 63, 1);
 }
+
+.Track a {
+    text-decoration: none;
+    color: #ffffff;
+}
+.Track a:hover {
+    color: #6c41ec;
+ }
 
 .Track-play {
     display: flex;
@@ -27,7 +34,11 @@
 }
 
 .Track-action:hover {
-    color: rgba(255, 255, 255, 0.5);
+    opacity: .5;
+}
+
+.Track-action:active {
+    color: #6c41ec;
 }
 
 .Track-information {
@@ -38,6 +49,14 @@
     height: 72px;
 }
 
+.Explicit {
+    border: 1px solid #6c41ec;
+    font-size: .8rem;
+    padding: .2rem;
+    color: #7951ee;
+    margin-bottom: 2rem;
+}
+
 .Track-information h3 {
     margin-bottom: .22rem;
 }
@@ -46,4 +65,22 @@
     font-size: .83rem;
     font-weight: 300;
     color: rgba(256, 256, 256, 0.8);
+}
+
+.Inactive {
+    cursor: default;
+}
+
+.Inactive:hover {
+    opacity: 1;
+}
+
+.Inactive:active {
+    color: #ffffff;
+}
+
+@media only screen and (max-width: 500px) {
+    .Explicit {
+        font-size: .5rem;
+    }
 }

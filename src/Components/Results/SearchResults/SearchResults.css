@@ -1,7 +1,7 @@
 .SearchResults {
   width: 100%;
-  max-height: 450px;
-  min-height: 450px;
+  max-height: 525px;
+  min-height: 500px;
   overflow-y: scroll;
 }
 

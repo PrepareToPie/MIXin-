@@ -36,7 +36,10 @@ const Spotify = {
                         artist: track.artists[0].name,
                         album: track.album.name,
                         uri: track.uri,
-                        audio: new Audio(track.preview_url)
+                        audio: new Audio(track.preview_url),
+                        explicit: track.explicit,
+                        external_url: track.external_urls.spotify,
+                        isPlayable: !!track.preview_url
                     }));
                 } else {
                     return [];
@@ -58,7 +61,9 @@ const Spotify = {
                         artist: track.artists[0].name,
                         album: track.album.name,
                         uri: track.uri,
-                        audio: new Audio(track.preview_url)
+                        audio: new Audio(track.preview_url),
+                        explicit: track.explicit,
+                        external_url: track.external_urls.spotify
                     }));
                 } else {
                     return [];

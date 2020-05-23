@@ -39,7 +39,8 @@ class App extends React.Component {
 
     getRecommendations() {
         this.state.recommendedTracks.forEach(track => track.audio.pause());
-        Spotify.getRecommendations(this.state.playlistTracks.map(track => track.id).toString()).then(recommendations => {
+        let seed = this.state.playlistTracks.map(track => track.id).slice(0, 5).toString();
+        Spotify.getRecommendations(seed).then(recommendations => {
             this.setState({recommendedTracks: recommendations});
             console.log(this.state.recommendedTracks);
         });
@@ -125,6 +126,10 @@ class App extends React.Component {
                         playlistSaving: false
                     }));
         }
+    }
+
+    componentWillMount() {
+        Spotify.getAccessToken();
     }
 
     render() {

@@ -1,16 +1,14 @@
 .SearchBar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 4rem;
-  margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 4rem 0;
 }
 
 .SearchBar input {
     width: 70%;
     border: 0;
     outline: 0;
-    margin-bottom: 2rem;
     background: transparent;
     border-bottom: 1px solid #ccc;
     font-family: 'Poppins', sans-serif;
@@ -19,52 +17,38 @@
     transition: transform .1s ease-in;
 }
 
-.SearchBar input::placeholder{
+.SearchBar input::placeholder {
     color: #ffffff;
     opacity: .5;
 }
 
-.SearchBar input:focus{
+.SearchBar input:focus {
     transform: scale(1.025);
- }
-/*width: 287px;*/
-/*padding: .88rem 0;*/
-/*border: 1px solid #fff;*/
-/*border-radius: 3px;*/
-/*margin-bottom: 2.22rem;*/
-/*color: #010c3f;*/
-/*text-align: center;*/
-/*font-size: 1rem;*/
-
-/*.SearchBar input:focus {*/
-/*  outline: none;*/
-/*  padding: .80rem 0;*/
-/*}*/
+}
 
 .SearchButton {
-  cursor: pointer;
-  width: 8.11rem;
-  padding: .77rem 0;
-  border-radius: 54px;
-  background-color: #010c3f;
-  text-align: center;
-  font-size: .833rem;
-  transition: background-color .25s;
-  border: 0;
-  color: #fff;
-  font-weight: 500;
+    cursor: pointer;
+    width: 8.11rem;
+    padding: .77rem 0;
+    border-radius: 54px;
+    background-color: #010c3f;
+    text-align: center;
+    font-size: .833rem;
+    transition: background-color .25s;
+    border: 0;
+    color: #fff;
+    font-weight: 500;
 }
 
 .SearchButton:hover {
-  background-color: rgba(108, 65, 233, .7);
+    background-color: rgba(108, 65, 233, .7);
 }
 
-
-/*@media only screen and (max-width: 1020px) {*/
-/*    .SearchBar input {*/
-/*        width: 70%;*/
-/*    }*/
-/*}*/
+@media only screen and (max-width: 1020px) {
+    .SearchBar {
+        margin: 2rem 0;
+    }
+}
 
 @media only screen and (max-width: 730px) {
     .SearchBar input {

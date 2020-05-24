@@ -2,12 +2,14 @@ import React, {Component} from 'react';
 import {SearchResults} from "./SearchResults/SearchResults";
 import RecommendedResults from "./RecommendedResults/RecommendedResults";
 import './Results.css';
+import ResultsHeader from "./ResultsHeader/ResultsHeader";
 
 class Results extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            displayResults: "search"
+            displayResults: "search",
+
         };
         this.displayRecommendedResults = this.displayRecommendedResults.bind(this);
         this.displaySearchResults = this.displaySearchResults.bind(this);
@@ -27,10 +29,10 @@ class Results extends Component {
             case "recommended":
                 return (
                     <div className="Results">
-                        <ul className="Results-select">
-                            <li onClick={this.displaySearchResults}>Search results</li>
-                            <li className="active" id="recommend" onClick={this.displayRecommendedResults}>Recommended</li>
-                        </ul>
+                        <ResultsHeader
+                            activeDisplay={this.state.displayResults}
+                            onDisplaySearchResults={this.displaySearchResults}
+                            onDisplayRecommendedResults={this.displayRecommendedResults}/>
                         <RecommendedResults
                             recommendedTracks={this.props.recommendedTracks}
                             onAdd={this.props.onAdd}
@@ -41,10 +43,10 @@ class Results extends Component {
             default:
                 return (
                     <div className="Results">
-                        <ul className="Results-select">
-                            <li className="active">Search results</li>
-                            <li onClick={this.displayRecommendedResults}>Recommended</li>
-                        </ul>
+                        <ResultsHeader
+                            activeDisplay={this.state.displayResults}
+                            onDisplaySearchResults={this.displaySearchResults}
+                            onDisplayRecommendedResults={this.displayRecommendedResults}/>
                         <SearchResults
                             searchResults={this.props.searchResults}
                             onAdd={this.props.onAdd}

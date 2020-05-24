@@ -28,7 +28,9 @@ export class Playlist extends React.Component {
             return (
                 <div className="Playlist">
                     <input placeholder="Playlist name" onChange={this.handleNameChange}/>
-                    <PlaylistAction onSave={this.props.onSave}/>
+                    {!!this.props.playlistTracks.length && <PlaylistAction
+                        onSave={this.props.onSave}
+                        onClear={this.props.onClear}/>}
                     <TrackList tracks={this.props.playlistTracks}
                                onRemove={this.props.onRemove}
                                isRemoval={true}

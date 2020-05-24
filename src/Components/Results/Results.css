@@ -21,6 +21,10 @@
     opacity: .9;
 }
 
+.Results ul li:active {
+    opacity: .9;
+}
+
 .active {
     color: #ffffff !important;
     cursor: default !important;
@@ -32,6 +36,23 @@
 
 #recommend{
     cursor: pointer !important;
+}
+
+#recommend:hover{
+    opacity: .9 !important;
+    cursor: pointer !important;
+}
+
+.jump {
+     display: inline-block;
+     transform-origin: 50% 50%;
+     animation: jump .125s linear alternate infinite;
+ }
+
+@keyframes jump {
+    0%   {transform: translate3d(0,0,0);}
+    40%  {transform: translate3d(0,-30%,0);}
+    100% {transform: translate3d(0,-40%,0);}
 }
 
 @media only screen and (max-width: 1020px) {

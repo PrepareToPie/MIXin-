@@ -24,6 +24,7 @@ class App extends React.Component {
         this.pauseAll = this.pauseAll.bind(this);
         this.updatePlaylistName = this.updatePlaylistName.bind(this);
         this.savePlaylist = this.savePlaylist.bind(this);
+        this.clearPlaylist = this.clearPlaylist.bind(this);
         this.search = this.search.bind(this);
         this.getRecommendations = this.getRecommendations.bind(this);
     }
@@ -128,6 +129,11 @@ class App extends React.Component {
         }
     }
 
+    clearPlaylist() {
+        this.state.playlistTracks.forEach(track => track.audio.pause());
+        this.setState({playlistTracks: []});
+    }
+
     componentWillMount() {
         Spotify.getAccessToken();
     }
@@ -154,6 +160,7 @@ class App extends React.Component {
                             onRemove={this.removeTrack}
                             onNameChange={this.updatePlaylistName}
                             onSave={this.savePlaylist}
+                            onClear={this.clearPlaylist}
                             playlistSaving={this.state.playlistSaving}
                             onPlay={this.playTrack}
                             onPause={this.pauseTrack}

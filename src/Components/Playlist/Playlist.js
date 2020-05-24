@@ -21,7 +21,7 @@ export class Playlist extends React.Component {
             return (
                 <div className="Playlist">
                     <FontAwesomeIcon icon={faSpinner} spin pulse size="5x" className="Saving"/>
-                    <p>Saving your playlist</p>
+                    <p>Saving your playlist to <span id="Spotify">Spotify</span></p>
                 </div>
             );
         } else {

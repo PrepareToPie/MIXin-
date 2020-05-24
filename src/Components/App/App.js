@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {Playlist} from '../Playlist/Playlist';
+import {PlaylistWindow} from '../Playlist/PlaylistWindow';
 import {SearchBar} from '../SearchBar/Searchbar';
 import Spotify from '../../util/Spotify';
 import Results from "../Results/Results";
@@ -11,9 +11,10 @@ class App extends React.Component {
         super(props);
         this.state = {
             searchResults: [],
-            playlistName: 'My Playlist',
+            playlistName: 'New Playlist',
             playlistTracks: [],
             playlistSaving: false,
+            userPlaylists: [],
             recommendedTracks: [],
             currentlyPlayingTrack: ''
         };
@@ -26,6 +27,8 @@ class App extends React.Component {
         this.savePlaylist = this.savePlaylist.bind(this);
         this.clearPlaylist = this.clearPlaylist.bind(this);
         this.search = this.search.bind(this);
+        this.getUserPlaylists = this.getUserPlaylists.bind(this);
+        this.getPlaylistTracks = this.getPlaylistTracks.bind(this);
         this.getRecommendations = this.getRecommendations.bind(this);
     }
 
@@ -43,7 +46,6 @@ class App extends React.Component {
         let seed = this.state.playlistTracks.map(track => track.id).slice(0, 5).toString();
         Spotify.getRecommendations(seed).then(recommendations => {
             this.setState({recommendedTracks: recommendations});
-            console.log(this.state.recommendedTracks);
         });
     }
 
@@ -129,6 +131,25 @@ class App extends React.Component {
         }
     }
 
+    getUserPlaylists() {
+        Spotify.getPlaylists().then(userPlaylists => {
+            this.setState({userPlaylists: userPlaylists});
+        });
+    }
+
+    getPlaylistTracks(playlistId) {
+        Spotify.getPlaylistTracks(playlistId).then(tracks => {
+            let updatedPlaylists = this.state.userPlaylists;
+            let updatedPlaylist = this.state.userPlaylists.find(playlist => playlist.id === playlistId);
+            let indexOfItemToUpdate = this.state.userPlaylists.indexOf(playlist => playlist.id === playlistId);
+            updatedPlaylist.tracks = tracks;
+            updatedPlaylists[indexOfItemToUpdate] = updatedPlaylist;
+            console.log({updatedPlaylist: updatedPlaylist});
+            this.setState({userPlaylists: updatedPlaylists});
+            console.log({playlists: this.state.userPlaylists});
+        })
+    }
+
     clearPlaylist() {
         this.state.playlistTracks.forEach(track => track.audio.pause());
         this.setState({playlistTracks: []});
@@ -154,16 +175,19 @@ class App extends React.Component {
                             onPauseAll={this.pauseAll}
                             onRecommend={this.getRecommendations}
                             playingTrack={this.state.currentlyPlayingTrack}/>
-                        <Playlist
+                        <PlaylistWindow
                             playlistName={this.state.playlistName}
                             playlistTracks={this.state.playlistTracks}
+                            userPlaylists={this.state.userPlaylists}
+                            onUsersPlaylists={this.getUserPlaylists}
+                            onPlaylistGet={this.getPlaylistTracks}
                             onRemove={this.removeTrack}
                             onNameChange={this.updatePlaylistName}
                             onSave={this.savePlaylist}
                             onClear={this.clearPlaylist}
-                            playlistSaving={this.state.playlistSaving}
                             onPlay={this.playTrack}
                             onPause={this.pauseTrack}
+                            playlistSaving={this.state.playlistSaving}
                             playingTrack={this.state.currentlyPlayingTrack}/>
                     </div>
                 </div>

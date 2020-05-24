@@ -104,6 +104,52 @@ const Spotify = {
                         });
                 });
         }
+    },
+    getPlaylists() {
+        const accessToken = this.getAccessToken();
+        let headers = {
+            Authorization: `Bearer ${accessToken[1]}`,
+            'Content-Type': 'application/json'
+        };
+        return fetch("https://api.spotify.com/v1/me/playlists", {headers: headers})
+            .then(response => response.json())
+            .then(jsonResponse => {
+                if (jsonResponse.items) {
+                    return jsonResponse.items.map(item => ({
+                        id: item.id,
+                        href: item.href,
+                        name: item.name,
+                        public: item.public
+                    }));
+                } else {
+                    return [];
+                }
+            })
+    },
+    getPlaylistTracks(playlistId) {
+        const accessToken = this.getAccessToken();
+        let headers = {
+            Authorization: `Bearer ${accessToken[1]}`,
+            'Content-Type': 'application/json'
+        };
+        return fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {headers: headers})
+            .then(response => response.json())
+            .then(jsonResponse => {
+                if (jsonResponse.items) {
+                    return jsonResponse.items.map(item => ({
+                        id: item.track.id,
+                        name: item.track.name,
+                        artist: item.track.artists[0].name,
+                        album: item.track.album.name,
+                        uri: item.track.uri,
+                        audio: new Audio(item.track.preview_url),
+                        explicit: item.track.explicit,
+                        external_url: item.track.external_urls.spotify
+                    }))
+                } else {
+                    return [];
+                }
+            })
     }
 };
 

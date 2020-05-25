@@ -35,7 +35,7 @@ class PlaylistWindowHeader extends Component {
                                           title="Your playlists"/>
                 <PlaylistWindowHeaderItem active={this.props.displayedPlaylist === "custom"}
                                           onClick={this.handleCustomClick}
-                                          title={this.props.playlistName}/>
+                                          title="Current playlist"/>
             </ul>
         );
     }

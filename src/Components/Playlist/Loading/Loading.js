@@ -4,8 +4,8 @@ import React from "react";
 
 function Loading() {
     return (
-        <div className="Playlist-window">
-            <FontAwesomeIcon icon={faSpinner} spin pulse size="5x" className="Saving"/>
+        <div className="playlist-window">
+            <FontAwesomeIcon icon={faSpinner} spin pulse size="5x" className="saving"/>
             <p>Saving your playlist to <span id="Spotify">Spotify</span></p>
         </div>
     );

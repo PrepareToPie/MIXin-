@@ -1,5 +1,5 @@
 .Results {
-    width: 50%;
+    width: 47%;
     max-height: 650px;
     min-height: 500px;
     overflow-y: hidden;
@@ -25,6 +25,10 @@
     opacity: .9;
 }
 
+.Results-select {
+    width: 100%;
+}
+
 .active {
     color: #ffffff !important;
     cursor: default !important;
@@ -44,15 +48,32 @@
 }
 
 .jump {
-     display: inline-block;
-     transform-origin: 50% 50%;
-     animation: jump .125s linear alternate infinite;
- }
+    display: inline-block;
+    transform-origin: 50% 50%;
+    animation: jump .125s linear alternate infinite;
+}
 
 @keyframes jump {
-    0%   {transform: translate3d(0,0,0);}
-    40%  {transform: translate3d(0,-30%,0);}
-    100% {transform: translate3d(0,-40%,0);}
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    40% {
+        transform: translate3d(0, -30%, 0);
+    }
+    100% {
+        transform: translate3d(0, -40%, 0);
+    }
+}
+
+@media only screen and (max-width: 1092px) {
+    .Results ul li {
+        display: inline-block;
+        margin: .5rem 1rem;
+    }
+
+    .Results-select {
+        margin-bottom: .5rem;
+    }
 }
 
 @media only screen and (max-width: 1020px) {

@@ -72,6 +72,9 @@ class App extends React.Component {
 
     removeTrack(track) {
         if (this.state.playlist.tracks.find(savedTrack => savedTrack.id === track.id)) {
+            if (this.state.currentlyPlayingTrack === track.id) {
+                this.pauseTrack(track);
+            }
             let updatedPlaylistTracks = this.state.playlist.tracks;
             updatedPlaylistTracks.splice(this.state.playlist.tracks.indexOf(track), 1);
             this.setState({});

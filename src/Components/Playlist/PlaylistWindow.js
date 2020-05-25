@@ -35,7 +35,7 @@ export class PlaylistWindow extends React.Component {
             switch (this.state.displayedPlaylist) {
                 case "users":
                     return (
-                        <div className="Playlist-window">
+                        <div className="playlist-window">
                             <PlaylistWindowHeader
                                 playlistName={this.props.playlist.name}
                                 displayedPlaylist={this.state.displayedPlaylist}
@@ -51,7 +51,7 @@ export class PlaylistWindow extends React.Component {
                     );
                 default:
                     return (
-                        <div className="Playlist-window">
+                        <div className="playlist-window">
                             <PlaylistWindowHeader
                                 playlistName={this.props.playlist.name}
                                 displayedPlaylist={this.state.displayedPlaylist}

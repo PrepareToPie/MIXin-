@@ -1,8 +1,8 @@
-.Playlist-window {
+.playlist-window {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 43%;
+  width: 47%;
   max-height: 650px;
   min-height: 200px;
   padding: .88rem .5rem 0 .5rem;
@@ -11,9 +11,9 @@
   overflow-y: hidden;
 }
 
-.Playlist-window input {
-  display: inline;
-  width: 100%;
+.playlist-window input {
+  display: inline-block;
+  width: 90%;
   border: 0;
   outline: 0;
   background: transparent;
@@ -24,13 +24,13 @@
   color: #fff;
 }
 
-.Playlist-window button {
+.playlist-window button {
   cursor: pointer;
   width: 8rem;
   padding: .77rem 0;
   border-radius: 54px;
   border-width: 0;
-  margin-top: 1.27rem;
+  margin: .5rem;
   background-color: #6c41ec;
   text-align: center;
   font-size: .83rem;
@@ -40,7 +40,7 @@
   outline: none;
 }
 
-.Playlist-window ul li {
+.playlist-window ul li {
   display: inline-block;
   margin: 1rem;
   font-family: 'Poppins', sans-serif;
@@ -49,75 +49,96 @@
   font-size: 1.55rem;
 }
 
-.Playlist-window ul li:hover {
+.playlist-window ul li:hover {
   opacity: .9;
 }
 
-.Playlist-window ul li:active {
+.playlist-window ul li:active {
   opacity: .9;
 }
 
-.Playlist-window button:hover {
+.playlist-window button:hover {
   background-color: rgba(108, 65, 233, .7) !important;
 }
 
-.Playlist-window button:active {
+.playlist-window button:active {
   background-color: rgba(108, 65, 233, .3) !important;
 }
 
-.Playlist {
+.playlist {
   width: 100%;
   max-height: 600px;
   min-height: 200px;
   overflow-y: hidden;
 }
 
-.Playlist-action {
+.playlist-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.playlist-action {
   display: flex;
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  margin-bottom: .5rem;
 }
 
-.Playlist-public {
+.playlist-public-toggle {
   display: inline-block;
+  margin: 1rem;
   cursor: pointer;
   color: #6c41ec;
 }
 
-.Playlist-public:hover {
+.playlist-public-toggle:hover {
   opacity: .8;
 }
 
-.Playlist-public p {
-  font-size: small;
+.playlist-public-toggle p {
+  display: inline-block;
   color: #ffffff;
 }
 
-#Playlist-save {
+#playlist-save {
   background-color: #1DB954;
 }
 
-#Playlist-clear {
+#playlist-clear {
   background-color: #dc3848;
 }
 
-#Spotify {
+#spotify {
   color: #1DB954;
 }
 
-.Saving {
+.saving {
   margin: 2rem;
 }
 
 ::-webkit-scrollbar {
-    width: 0;
-    background: transparent;
+  width: 0;
+  background: transparent;
+}
+
+
+@media only screen and (max-width: 1065px) {
+  .playlist-window ul li {
+    display: inline-block;
+    margin: .5rem 1rem;
+  }
 }
 
 @media only screen and (max-width: 1020px) {
-  .Playlist-window {
+  .playlist-window {
     width: 90%;
   }
 }
+
+@media only screen and (max-width: 570px) {
+  .playlist-window ul li {
+    display: inline-block;
+    margin: .5rem 1rem;
+  }
+}
+

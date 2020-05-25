@@ -2,7 +2,7 @@ import React from 'react';
 import './Track.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {Audio} from '@bit/mhnpd.react-loader-spinner.audio';
-import {faPause, faPlay, faPlus, faMinus, faVolumeMute} from '@fortawesome/free-solid-svg-icons';
+import {faMinus, faPause, faPlay, faPlus, faVolumeMute} from '@fortawesome/free-solid-svg-icons';
 
 export class Track extends React.Component {
     constructor(props) {
@@ -31,31 +31,32 @@ export class Track extends React.Component {
 
     renderAction() {
         return this.props.isRemoval ?
-            <FontAwesomeIcon icon={faMinus} className="Track-action" onClick={this.removeTrack}/> :
-            <FontAwesomeIcon icon={faPlus} className="Track-action" onClick={this.addTrack}/>;
+            <FontAwesomeIcon icon={faMinus} className="track-action" onClick={this.removeTrack}/> :
+            <FontAwesomeIcon icon={faPlus} className="track-action" onClick={this.addTrack}/>;
     }
 
     renderPlay() {
         if(this.props.track.isPlayable) {
             return this.props.isPlaying ?
-                <FontAwesomeIcon onClick={this.pauseTrack} icon={faPause} className="Track-action"/>
+                <FontAwesomeIcon onClick={this.pauseTrack} icon={faPause} className="track-action"/>
                 :
-                <FontAwesomeIcon onClick={this.playTrack} icon={faPlay} className="Track-action"/>;
+                <FontAwesomeIcon onClick={this.playTrack} icon={faPlay} className="track-action"/>;
         } else {
-            return <FontAwesomeIcon icon={faVolumeMute} className="Track-action Inactive"/>;
+            return <FontAwesomeIcon icon={faVolumeMute} className="track-action inactive"/>;
         }
     }
 
     render() {
         return (
-            <div className="Track">
+            <div className="list-item">
                 {this.renderPlay()}
-                <div className="Track-information">
-                    <h3><a href={this.props.track.external_url} target="_blank" rel="noopener noreferrer"> {this.props.track.name} </a></h3>
+                <div className="list-item-info">
+                    <h3><a href={this.props.track.external_url} target="_blank"
+                           rel="noopener noreferrer"> {this.props.track.name} </a></h3>
                     <p>{this.props.track.artist} | {this.props.track.album}</p>
                 </div>
                 {this.props.track.explicit && !this.props.isPlaying &&
-                    <p className="Explicit">EXPLICIT</p>
+                <p className="explicit">EXPLICIT</p>
                 }
                 {this.props.isPlaying &&
                 <Audio

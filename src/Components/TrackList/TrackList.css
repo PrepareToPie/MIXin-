@@ -7,3 +7,14 @@
   max-height: 450px;
 }
 
+@media only screen and (max-width: 1165px) {
+  #TrackList-right {
+    max-height: 420px;
+  }
+}
+
+@media only screen and (max-width: 570px) {
+  #TrackList-right {
+    max-height: 420px;
+  }
+}

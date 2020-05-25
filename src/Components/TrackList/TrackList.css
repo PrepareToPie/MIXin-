@@ -2,3 +2,8 @@
   width: 100%;
   overflow-y: scroll;
 }
+
+#TrackList-right {
+  max-height: 450px;
+}
+

@@ -4,7 +4,7 @@ import React from "react";
 
 function Loading() {
     return (
-        <div className="Playlist">
+        <div className="Playlist-window">
             <FontAwesomeIcon icon={faSpinner} spin pulse size="5x" className="Saving"/>
             <p>Saving your playlist to <span id="Spotify">Spotify</span></p>
         </div>

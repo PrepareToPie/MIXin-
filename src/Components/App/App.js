@@ -11,11 +11,16 @@ class App extends React.Component {
         super(props);
         this.state = {
             searchResults: [],
-            playlistName: 'New Playlist',
-            playlistTracks: [],
-            playlistSaving: false,
-            userPlaylists: [],
             recommendedTracks: [],
+            userPlaylists: [],
+            playlist: {
+                id: '',
+                href: '',
+                name: 'New Playlist',
+                public: true,
+                tracks: []
+            },
+            playlistSaving: false,
             currentlyPlayingTrack: ''
         };
         this.addTrack = this.addTrack.bind(this);
@@ -24,6 +29,7 @@ class App extends React.Component {
         this.pauseTrack = this.pauseTrack.bind(this);
         this.pauseAll = this.pauseAll.bind(this);
         this.updatePlaylistName = this.updatePlaylistName.bind(this);
+        this.togglePublic = this.togglePublic.bind(this);
         this.savePlaylist = this.savePlaylist.bind(this);
         this.clearPlaylist = this.clearPlaylist.bind(this);
         this.search = this.search.bind(this);
@@ -35,7 +41,7 @@ class App extends React.Component {
     search(term) {
         this.pauseTrack();
         Spotify.search(term).then(searchResults => {
-            let playlistTrackIds = this.state.playlistTracks.map(track => track.id);
+            let playlistTrackIds = this.state.playlist.tracks.map(track => track.id);
             let searchResultsToSet = searchResults.filter(result => playlistTrackIds.indexOf(result.id) === -1);
             this.setState({searchResults: searchResultsToSet});
         });
@@ -43,22 +49,21 @@ class App extends React.Component {
 
     getRecommendations() {
         this.state.recommendedTracks.forEach(track => track.audio.pause());
-        let seed = this.state.playlistTracks.map(track => track.id).slice(0, 5).toString();
+        let seed = this.state.playlist.tracks.map(track => track.id).slice(0, 5).toString();
         Spotify.getRecommendations(seed).then(recommendations => {
             this.setState({recommendedTracks: recommendations});
         });
     }
 
     addTrack(track) {
-        if (!this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
-            let updatedPlaylistTracks = this.state.playlistTracks;
-            updatedPlaylistTracks.push(track);
+        if (!this.state.playlist.tracks.find(savedTrack => savedTrack.id === track.id)) {
+            let updatedPlaylistTracks = this.state.playlist.tracks;
+            updatedPlaylistTracks.unshift(track);
             let updatedSearchResults = this.state.searchResults;
             updatedSearchResults.splice(this.state.searchResults.indexOf(track), 1);
             let updatedRecommendedTracks = this.state.recommendedTracks;
             updatedRecommendedTracks.splice(this.state.recommendedTracks.indexOf(track), 1);
             this.setState({
-                playlistTracks: updatedPlaylistTracks,
                 searchResults: updatedSearchResults,
                 recommendedTracks: updatedRecommendedTracks
             });
@@ -66,25 +71,15 @@ class App extends React.Component {
     }
 
     removeTrack(track) {
-        if (this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
-            let updatedPlaylistTracks = this.state.playlistTracks;
-            updatedPlaylistTracks.splice(this.state.playlistTracks.indexOf(track), 1);
-            let updatedSearchResults = this.state.searchResults;
-            updatedSearchResults.unshift(track);
-            let updatedRecommendedTracks = this.state.recommendedTracks;
-            updatedRecommendedTracks.unshift(track);
-            this.setState({
-                playlistTracks: updatedPlaylistTracks,
-                searchResults: updatedSearchResults,
-                recommendedTracks: updatedRecommendedTracks
-            });
+        if (this.state.playlist.tracks.find(savedTrack => savedTrack.id === track.id)) {
+            let updatedPlaylistTracks = this.state.playlist.tracks;
+            updatedPlaylistTracks.splice(this.state.playlist.tracks.indexOf(track), 1);
+            this.setState({});
         }
     }
 
     playTrack(track) {
         if (this.state.currentlyPlayingTrack) {
-            // let playingTrack = this.state.playlistTracks.find(playlistTrack => this.state.currentlyPlayingTrack === playlistTrack.id) || this.state.searchResults.find(searchResult => this.state.currentlyPlayingTrack === searchResult.id || this.state.recommendedTracks.find(recommendedTrack => this.state.currentlyPlayingTrack === recommendedTrack.id));
-            // this.pauseTrack(playingTrack);
             this.pauseAll();
         }
         track.audio.play();
@@ -97,8 +92,12 @@ class App extends React.Component {
                 track.audio.pause();
                 this.setState({currentlyPlayingTrack: ''});
             } else {
-                let playingTrack = this.state.playlistTracks.find(playlistTrack => this.state.currentlyPlayingTrack === playlistTrack.id) || this.state.searchResults.find(searchResult => this.state.currentlyPlayingTrack === searchResult.id || this.state.recommendedTracks.find(recommendedTrack => this.state.currentlyPlayingTrack === recommendedTrack.id));
-                playingTrack.audio.pause();
+                let playingTrack = this.state.playlist.tracks.find(playlistTrack => this.state.currentlyPlayingTrack === playlistTrack.id) ||
+                    this.state.searchResults.find(searchResult => this.state.currentlyPlayingTrack === searchResult.id ||
+                        this.state.recommendedTracks.find(recommendedTrack => this.state.currentlyPlayingTrack === recommendedTrack.id));
+                if (playingTrack) {
+                    playingTrack.audio.pause();
+                }
                 this.setState({currentlyPlayingTrack: ''});
             }
         } else {
@@ -106,28 +105,56 @@ class App extends React.Component {
         }
     }
 
-    pauseAll(){
-        this.state.playlistTracks.forEach(track => track.audio.pause());
+    pauseAll() {
+        this.state.playlist.tracks.forEach(track => track.audio.pause());
         this.state.searchResults.forEach(track => track.audio.pause());
         this.state.recommendedTracks.forEach(track => track.audio.pause());
     }
 
     updatePlaylistName(name) {
-        this.setState({playlistName: name});
+        let playlist = this.state.playlist;
+        playlist.name = name;
+        this.setState({playlist: playlist});
+    }
+
+    togglePublic() {
+        let playlist = this.state.playlist;
+        playlist.public = !playlist.public;
+        this.setState({playlist: playlist});
     }
 
     savePlaylist() {
         this.pauseTrack();
-        if (this.state.playlistTracks.length && this.state.playlistName) {
+        if (this.state.playlist.tracks.length && this.state.playlist.name) {
             this.setState({playlistSaving: true});
-            const trackURIs = this.state.playlistTracks.map(track => track.uri);
-            Spotify.savePlaylist(this.state.playlistName, trackURIs)
-                .then(() =>
-                    this.setState({
-                        playlistName: 'New Playlist',
-                        playlistTracks: [],
-                        playlistSaving: false
-                    }));
+            if (!this.state.playlist.id) {
+                const trackURIs = this.state.playlist.tracks.map(track => track.uri);
+                Spotify.savePlaylist(this.state.playlist.name, trackURIs)
+                    .then(() => {
+                            let freshPlaylist = {
+                                id: '',
+                                href: '',
+                                name: 'New Playlist',
+                                public: true,
+                                tracks: []
+                            };
+                            this.setState({
+                                playlist: freshPlaylist,
+                                playlistSaving: false
+                            });
+                        }
+                    );
+            } else {
+                let playlistDetails = {
+                    name: this.state.playlist.name,
+                    public: this.state.playlist.public
+                };
+                Spotify.changePlaylistDetails(this.state.playlist.id, playlistDetails);
+                let trackURIs = this.state.playlist.tracks.map(track => track.uri);
+                Spotify.replacePlaylistTracks(this.state.playlist.id, trackURIs).then(() => {
+                    this.setState({playlistSaving: false});
+                });
+            }
         }
     }
 
@@ -137,22 +164,19 @@ class App extends React.Component {
         });
     }
 
-    getPlaylistTracks(playlistId) {
-        Spotify.getPlaylistTracks(playlistId).then(tracks => {
-            let updatedPlaylists = this.state.userPlaylists;
-            let updatedPlaylist = this.state.userPlaylists.find(playlist => playlist.id === playlistId);
-            let indexOfItemToUpdate = this.state.userPlaylists.indexOf(playlist => playlist.id === playlistId);
-            updatedPlaylist.tracks = tracks;
-            updatedPlaylists[indexOfItemToUpdate] = updatedPlaylist;
-            console.log({updatedPlaylist: updatedPlaylist});
-            this.setState({userPlaylists: updatedPlaylists});
-            console.log({playlists: this.state.userPlaylists});
-        })
+    getPlaylistTracks(playlist) {
+        this.pauseTrack();
+        Spotify.getPlaylistTracks(playlist.id).then(tracks => {
+            playlist.tracks = tracks;
+            this.setState({playlist: playlist});
+        });
     }
 
     clearPlaylist() {
-        this.state.playlistTracks.forEach(track => track.audio.pause());
-        this.setState({playlistTracks: []});
+        this.state.playlist.tracks.forEach(track => track.audio.pause());
+        let updatedPlaylist = this.state.playlist;
+        updatedPlaylist.tracks = [];
+        this.setState({playlist: updatedPlaylist});
     }
 
     componentWillMount() {
@@ -176,13 +200,13 @@ class App extends React.Component {
                             onRecommend={this.getRecommendations}
                             playingTrack={this.state.currentlyPlayingTrack}/>
                         <PlaylistWindow
-                            playlistName={this.state.playlistName}
-                            playlistTracks={this.state.playlistTracks}
+                            playlist={this.state.playlist}
                             userPlaylists={this.state.userPlaylists}
                             onUsersPlaylists={this.getUserPlaylists}
                             onPlaylistGet={this.getPlaylistTracks}
                             onRemove={this.removeTrack}
                             onNameChange={this.updatePlaylistName}
+                            onTogglePublic={this.togglePublic}
                             onSave={this.savePlaylist}
                             onClear={this.clearPlaylist}
                             onPlay={this.playTrack}

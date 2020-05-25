@@ -9,7 +9,8 @@ class PlaylistsList extends Component {
                     <PlaylistListItem
                         playlist={playlist}
                         key={playlist.id}
-                        onPlaylistGet={this.props.onPlaylistGet}/>)}
+                        onPlaylistGet={this.props.onPlaylistGet}
+                        onDisplayCustomPlaylist={this.props.onDisplayCustomPlaylist}/>)}
             </div>
         );
     }

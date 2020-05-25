@@ -14,13 +14,17 @@ class Playlist extends Component {
 
     render() {
         return (
-            <div>
-                {!!this.props.playlistTracks.length &&
+            <div className="Playlist">
+                <input placeholder="Playlist name" value={this.props.playlist.name} onChange={this.handleNameChange}/>
+                {!!this.props.playlist.tracks.length &&
                 <PlaylistAction
+                    isPublic={this.props.playlist.public}
                     onSave={this.props.onSave}
                     onClear={this.props.onClear}
-                    onNameChange={this.handleNameChange}/>}
-                <TrackList tracks={this.props.playlistTracks}
+                    onTogglePublic={this.props.onTogglePublic}
+                />}
+                <TrackList id="TrackList-right"
+                           tracks={this.props.playlist.tracks}
                            onRemove={this.props.onRemove}
                            isRemoval={true}
                            onPlay={this.props.onPlay}

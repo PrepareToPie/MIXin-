@@ -30,12 +30,12 @@ class PlaylistWindowHeader extends Component {
     render() {
         return (
             <ul className="Results-select">
-                <PlaylistWindowHeaderItem active={this.props.displayedPlaylist === "custom"}
-                                          onClick={this.handleCustomClick}
-                                          title={this.props.playlistName}/>
                 <PlaylistWindowHeaderItem active={this.props.displayedPlaylist === "users"}
                                           onClick={this.handleUsersClick}
                                           title="Your playlists"/>
+                <PlaylistWindowHeaderItem active={this.props.displayedPlaylist === "custom"}
+                                          onClick={this.handleCustomClick}
+                                          title={this.props.playlistName}/>
             </ul>
         );
     }

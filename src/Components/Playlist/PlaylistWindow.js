@@ -35,9 +35,9 @@ export class PlaylistWindow extends React.Component {
             switch (this.state.displayedPlaylist) {
                 case "users":
                     return (
-                        <div className="Playlist">
+                        <div className="Playlist-window">
                             <PlaylistWindowHeader
-                                playlistName={this.props.playlistName}
+                                playlistName={this.props.playlist.name}
                                 displayedPlaylist={this.state.displayedPlaylist}
                                 onDisplayCustomPlaylist={this.displayCustomPlaylist}
                                 onDisplayUsersPLaylists={this.displayUsersPlaylists}/>
@@ -46,31 +46,28 @@ export class PlaylistWindow extends React.Component {
                                 onRemove={this.props.onRemove}
                                 isRemoval={true}
                                 onPlaylistGet={this.props.onPlaylistGet}
-                                onPlay={this.props.onPlay}
-                                onPause={this.props.onPause}
-                                playingTrack={this.props.playingTrack}/>
+                                onDisplayCustomPlaylist={this.displayCustomPlaylist}/>
                         </div>
                     );
                 default:
                     return (
-                        <div className="Playlist">
+                        <div className="Playlist-window">
                             <PlaylistWindowHeader
-                                playlistName={this.props.playlistName}
+                                playlistName={this.props.playlist.name}
                                 displayedPlaylist={this.state.displayedPlaylist}
                                 onDisplayCustomPlaylist={this.displayCustomPlaylist}
                                 onDisplayUsersPLaylists={this.displayUsersPlaylists}/>
                             <Playlist
-                                playlistName={this.props.playlistName}
-                                playlistTracks={this.props.playlistTracks}
+                                playlist={this.props.playlist}
                                 userPlaylists={this.props.userPlaylists}
                                 onRemove={this.props.onRemove}
                                 onNameChange={this.props.onNameChange}
                                 onSave={this.props.onSave}
                                 onClear={this.props.onClear}
+                                onTogglePublic={this.props.onTogglePublic}
                                 onPlay={this.props.onPlay}
                                 onPause={this.props.onPause}
-                                playlistSaving={this.props.playlistSaving}
-                                playingTrack={this.props.currentlyPlayingTrack}/>
+                                playingTrack={this.props.playingTrack}/>
                         </div>
                     );
 
@@ -80,8 +77,6 @@ export class PlaylistWindow extends React.Component {
 }
 
 PlaylistWindow.propTypes = {
-    playlistName: PropTypes.string.isRequired,
-    playlistTracks: PropTypes.array.isRequired,
     onRemove: PropTypes.func.isRequired,
     onNameChange: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired

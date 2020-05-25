@@ -100,6 +100,20 @@
   color: #ffffff;
 }
 
+.add-playlist {
+  cursor: pointer;
+  float: right;
+  margin: .5rem 1rem .5rem 0;
+}
+
+.add-playlist:hover {
+  color: #6c41ec;
+}
+
+.add-playlist:active {
+  color: rgba(108, 65, 233, .3);
+}
+
 #playlist-save {
   background-color: #1DB954;
 }

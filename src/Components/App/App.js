@@ -30,6 +30,7 @@ class App extends React.Component {
         this.pauseAll = this.pauseAll.bind(this);
         this.updatePlaylistName = this.updatePlaylistName.bind(this);
         this.togglePublic = this.togglePublic.bind(this);
+        this.newPlaylist = this.newPlaylist.bind(this);
         this.savePlaylist = this.savePlaylist.bind(this);
         this.clearPlaylist = this.clearPlaylist.bind(this);
         this.search = this.search.bind(this);
@@ -126,6 +127,17 @@ class App extends React.Component {
         this.setState({playlist: playlist});
     }
 
+    newPlaylist() {
+        let playlist = {
+            id: '',
+            href: '',
+            name: 'New Playlist',
+            public: true,
+            tracks: []
+        };
+        this.setState({playlist: playlist});
+    }
+
     savePlaylist() {
         this.pauseTrack();
         if (this.state.playlist.tracks.length && this.state.playlist.name) {
@@ -134,7 +146,7 @@ class App extends React.Component {
                 const trackURIs = this.state.playlist.tracks.map(track => track.uri);
                 Spotify.savePlaylist(this.state.playlist.name, trackURIs)
                     .then(() => {
-                            let freshPlaylist = {
+                        let freshPlaylist = {
                                 id: '',
                                 href: '',
                                 name: 'New Playlist',
@@ -205,6 +217,7 @@ class App extends React.Component {
                         <PlaylistWindow
                             playlist={this.state.playlist}
                             userPlaylists={this.state.userPlaylists}
+                            onNewPlaylist={this.newPlaylist}
                             onUsersPlaylists={this.getUserPlaylists}
                             onPlaylistGet={this.getPlaylistTracks}
                             onRemove={this.removeTrack}

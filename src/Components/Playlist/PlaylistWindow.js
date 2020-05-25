@@ -40,7 +40,8 @@ export class PlaylistWindow extends React.Component {
                                 playlistName={this.props.playlist.name}
                                 displayedPlaylist={this.state.displayedPlaylist}
                                 onDisplayCustomPlaylist={this.displayCustomPlaylist}
-                                onDisplayUsersPLaylists={this.displayUsersPlaylists}/>
+                                onDisplayUsersPLaylists={this.displayUsersPlaylists}
+                                onNewPlaylist={this.props.onNewPlaylist}/>
                             <PlaylistsList
                                 playlists={this.props.userPlaylists}
                                 onRemove={this.props.onRemove}
@@ -56,7 +57,8 @@ export class PlaylistWindow extends React.Component {
                                 playlistName={this.props.playlist.name}
                                 displayedPlaylist={this.state.displayedPlaylist}
                                 onDisplayCustomPlaylist={this.displayCustomPlaylist}
-                                onDisplayUsersPLaylists={this.displayUsersPlaylists}/>
+                                onDisplayUsersPLaylists={this.displayUsersPlaylists}
+                                onNewPlaylist={this.props.onNewPlaylist}/>
                             <Playlist
                                 playlist={this.props.playlist}
                                 userPlaylists={this.props.userPlaylists}

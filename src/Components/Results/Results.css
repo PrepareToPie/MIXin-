@@ -38,11 +38,11 @@
     opacity: 1 !important;
 }
 
-#recommend{
+#recommend {
     cursor: pointer !important;
 }
 
-#recommend:hover{
+#recommend:hover {
     opacity: .9 !important;
     cursor: pointer !important;
 }
@@ -88,6 +88,7 @@
         display: inline-block;
         margin: .5rem 1rem;
     }
+
     .Results-select {
         margin-bottom: .5rem;
     }

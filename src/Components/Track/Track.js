@@ -36,7 +36,7 @@ export class Track extends React.Component {
     }
 
     renderPlay() {
-        if(this.props.track.isPlayable) {
+        if (this.props.track.isPlayable) {
             return this.props.isPlaying ?
                 <FontAwesomeIcon onClick={this.pauseTrack} icon={faPause} className="track-action"/>
                 :

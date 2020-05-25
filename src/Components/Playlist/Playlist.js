@@ -24,8 +24,8 @@ function Playlist(props) {
                        onPlay={props.onPlay}
                        onPause={props.onPause}
                        playingTrack={props.playingTrack}/>
-            </div>
-        );
+        </div>
+    );
 }
 
 export default Playlist;

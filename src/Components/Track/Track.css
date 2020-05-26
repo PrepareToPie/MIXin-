@@ -28,6 +28,10 @@
     cursor: pointer;
 }
 
+.plus-icon {
+    margin-left: .5rem;
+}
+
 .track-play {
     display: flex;
     align-items: center;

@@ -29,9 +29,11 @@ export class PlaylistWindow extends React.Component {
     render() {
         if (this.props.playlist.saving) {
             return (
-                <Loading>
-                    <p>Saving your playlist to <span id="spotify">Spotify</span></p>
-                </Loading>
+                <div className="playlist-window">
+                    <Loading>
+                        <p>Saving your playlist to <span id="spotify">Spotify</span></p>
+                    </Loading>
+                </div>
             );
         } else {
             switch (this.state.displayedPlaylist) {

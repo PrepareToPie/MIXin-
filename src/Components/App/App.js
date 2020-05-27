@@ -31,7 +31,6 @@ class App extends React.Component {
                 loading: false,
                 saving: false
             },
-            playlistSaving: false,
             currentlyPlayingTrack: ''
         };
         this.addTrack = this.addTrack.bind(this);
@@ -61,7 +60,7 @@ class App extends React.Component {
 
     getRecommendations() {
         this.state.recommended.tracks.forEach(track => track.audio.pause());
-        this.setState({recommendedTracks: {loading: true}});
+        this.setState({recommended: {loading: true}});
         let seed = this.state.playlist.tracks.map(track => track.id).slice(0, 5).toString();
         Spotify.getRecommendations(seed).then(recommendations => {
             this.setState({recommended: {tracks: recommendations, loading: false}});
@@ -97,7 +96,7 @@ class App extends React.Component {
 
     playTrack(track) {
         if (this.state.currentlyPlayingTrack) {
-            this.pauseTrack();
+            this.pauseAll();
         }
         track.audio.play();
         this.setState({currentlyPlayingTrack: track.id});
@@ -109,18 +108,13 @@ class App extends React.Component {
                 track.audio.pause();
                 this.setState({currentlyPlayingTrack: ''});
             } else {
-                let playingTrack = this.state.playlist.tracks.find(playlistTrack => this.state.currentlyPlayingTrack === playlistTrack.id) ||
-                    this.state.searchResults.tracks.find(searchResult => this.state.currentlyPlayingTrack === searchResult.id ||
-                        this.state.recommended.tracks.find(recommendedTrack => this.state.currentlyPlayingTrack === recommendedTrack.id));
+                let playingTrack = this.state.playlist.tracks.find(playlistTrack => this.state.currentlyPlayingTrack === playlistTrack.id) || this.state.searchResults.tracks.find(searchResult => this.state.currentlyPlayingTrack === searchResult.id || this.state.recommended.tracks.find(recommendedTrack => this.state.currentlyPlayingTrack === recommendedTrack.id));
                 if (playingTrack) {
                     playingTrack.audio.pause();
                 }
                 this.setState({currentlyPlayingTrack: ''});
             }
         }
-        // } else {
-        //     this.pauseAll();
-        // }
     }
 
     pauseAll() {
@@ -220,12 +214,13 @@ class App extends React.Component {
 
     componentWillMount() {
         Spotify.getAccessToken();
+        this.getUserPlaylists();
     }
 
     render() {
         return (
             <div className="App-container">
-                <h1>ja<span className="highlight">mmm</span>ing</h1>
+                <h1><span className="highlight">MIX</span>in'</h1>
                 <div className="App">
                     <SearchBar onSearch={this.search}/>
                     <div className="App-playlist">

@@ -3,6 +3,9 @@ import {TrackList} from "../../TrackList/TrackList";
 import Loading from "../../Playlist/Loading/Loading";
 
 function RecommendedResults(props) {
+    if (props.recommended.loading) {
+        return <Loading/>;
+    }
     if (props.recommended.tracks.length) {
         return (
             <div className="SearchResults">
@@ -15,8 +18,6 @@ function RecommendedResults(props) {
                     playingTrack={props.playingTrack}/>
             </div>
         );
-    } else if (props.recommended.loading) {
-        return <Loading/>;
     } else {
         return <div className="SearchResults"><h2>At first let's add some tracks to playlist ;)</h2></div>
     }

@@ -19,7 +19,7 @@ function RecommendedResults(props) {
             </div>
         );
     } else {
-        return <div className="SearchResults"><h2>At first let's add some tracks to playlist ;)</h2></div>
+        return <div className="SearchResults"><h2>Nothing to recommend :(</h2></div>
     }
 }
 

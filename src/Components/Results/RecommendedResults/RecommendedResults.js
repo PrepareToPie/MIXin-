@@ -1,6 +1,6 @@
 import React from 'react';
 import {TrackList} from "../../TrackList/TrackList";
-import Loading from "../../Playlist/Loading/Loading";
+import Loading from "../../Loading/Loading";
 
 function RecommendedResults(props) {
     if (props.recommended.loading) {

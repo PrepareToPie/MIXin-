@@ -2,7 +2,7 @@ import React from 'react';
 import './SearchResults.css';
 import PropTypes from 'prop-types';
 import {TrackList} from '../../TrackList/TrackList';
-import Loading from "../../Playlist/Loading/Loading";
+import Loading from "../../Loading/Loading";
 
 export function SearchResults(props) {
     if (props.searchResults.loading) {
@@ -18,11 +18,11 @@ export function SearchResults(props) {
                     onLoading={props.onLoading}
                     isRemoval={false}
                     playingTrack={props.playingTrack}/>
-                </div>
-            );
-        } else {
-            return <div className="SearchResults"><h2>...</h2></div>
-        }
+            </div>
+        );
+    } else {
+        return <div className="SearchResults"><h2>...</h2></div>
+    }
 }
 
 SearchResults.propTypes = {

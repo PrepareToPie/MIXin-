@@ -2,7 +2,7 @@ import React from 'react';
 import {PlaylistAction} from "./PlaylistAction/PlaylistAction";
 import {TrackList} from "../TrackList/TrackList";
 import PlaylistDetails from "./PlaylistDetails";
-import Loading from "./Loading/Loading";
+import Loading from "../Loading/Loading";
 
 function Playlist(props) {
     if (props.playlist.loading) {

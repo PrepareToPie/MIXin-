@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Playlist.css';
-import Loading from "./Loading/Loading";
+import Loading from "../Loading/Loading";
 import PlaylistWindowHeader from "./PlaylistWindowHeader/PlaylistWindowHeader";
 import PlaylistsList from "./PlaylistsList/PlaylistsList";
 import Playlist from "./Playlist";

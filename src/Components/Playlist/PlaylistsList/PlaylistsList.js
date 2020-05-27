@@ -1,6 +1,6 @@
 import React from 'react';
 import {PlaylistListItem} from "./PlaylistListItem";
-import Loading from "../Loading/Loading";
+import Loading from "../../Loading/Loading";
 
 function PlaylistsList(props) {
     if (props.isLoading) {

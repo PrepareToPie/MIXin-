@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faGithub} from '@fortawesome/free-brands-svg-icons';
 import {PlaylistWindow} from '../Playlist/PlaylistWindow';
 import {SearchBar} from '../SearchBar/Searchbar';
 import Spotify from '../../util/Spotify';
@@ -220,7 +222,13 @@ class App extends React.Component {
     render() {
         return (
             <div className="App-container">
-                <h1><span className="highlight">MIX</span>in'</h1>
+                <div className="header">
+                    <h1><span className="highlight">MIX</span>in'</h1>
+                    <a id='github' href="https://github.com/PrepareToPie/MIXin-" rel="noopener noreferrer"
+                       target="_blank">
+                        <FontAwesomeIcon icon={faGithub}/>
+                    </a>
+                </div>
                 <div className="App">
                     <SearchBar onSearch={this.search}/>
                     <div className="App-playlist">

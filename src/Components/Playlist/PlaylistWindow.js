@@ -10,7 +10,7 @@ export class PlaylistWindow extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            displayedPlaylist: "custom"
+            displayedPlaylist: "users"
         }
         this.displayCustomPlaylist = this.displayCustomPlaylist.bind(this);
         this.displayUsersPlaylists = this.displayUsersPlaylists.bind(this);
@@ -27,9 +27,11 @@ export class PlaylistWindow extends React.Component {
 
 
     render() {
-        if (this.props.playlistSaving) {
+        if (this.props.playlist.saving) {
             return (
-                <Loading/>
+                <Loading>
+                    <p>Saving your playlist to <span id="spotify">Spotify</span></p>
+                </Loading>
             );
         } else {
             switch (this.state.displayedPlaylist) {
@@ -42,7 +44,8 @@ export class PlaylistWindow extends React.Component {
                                 onDisplayCustomPlaylist={this.displayCustomPlaylist}
                                 onDisplayUsersPLaylists={this.displayUsersPlaylists}/>
                             <PlaylistsList
-                                playlists={this.props.userPlaylists}
+                                playlists={this.props.userPlaylists.playlists}
+                                isLoading={this.props.userPlaylists.loading}
                                 onRemove={this.props.onRemove}
                                 isRemoval={true}
                                 onPlaylistGet={this.props.onPlaylistGet}

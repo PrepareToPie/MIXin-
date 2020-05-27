@@ -88,11 +88,15 @@
   display: inline-block;
   margin: 1rem;
   cursor: pointer;
-  color: #6c41ec;
+  color: #ffffff;
 }
 
 .playlist-public-toggle:hover {
   opacity: .8;
+}
+
+.playlist-public-toggle:active {
+  color: #6c41ec;
 }
 
 .playlist-public-toggle p {

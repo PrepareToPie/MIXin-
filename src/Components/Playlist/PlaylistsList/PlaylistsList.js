@@ -1,16 +1,19 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {PlaylistListItem} from "./PlaylistListItem";
+import Loading from "../Loading/Loading";
 
-class PlaylistsList extends Component {
-    render() {
+function PlaylistsList(props) {
+    if (props.isLoading) {
+        return <Loading/>;
+    } else {
         return (
             <div className="TrackList">
-                {this.props.playlists.map(playlist =>
+                {props.playlists.map(playlist =>
                     <PlaylistListItem
                         playlist={playlist}
                         key={playlist.id}
-                        onPlaylistGet={this.props.onPlaylistGet}
-                        onDisplayCustomPlaylist={this.props.onDisplayCustomPlaylist}/>)}
+                        onPlaylistGet={props.onPlaylistGet}
+                        onDisplayCustomPlaylist={props.onDisplayCustomPlaylist}/>)}
             </div>
         );
     }

@@ -34,7 +34,7 @@ class Results extends Component {
                             onDisplaySearchResults={this.displaySearchResults}
                             onDisplayRecommendedResults={this.displayRecommendedResults}/>
                         <RecommendedResults
-                            recommendedTracks={this.props.recommendedTracks}
+                            recommended={this.props.recommended}
                             onAdd={this.props.onAdd}
                             onPlay={this.props.onPlay}
                             onPause={this.props.onPause}

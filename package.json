@@ -1,6 +1,6 @@
 {
   "name": "mixin",
-  "version": "1.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@bit/mhnpd.react-loader-spinner.audio": "^2.2.0",

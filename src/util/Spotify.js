@@ -1,5 +1,5 @@
 const clientId = "f20636e447d54c409b9aa89de1d25d53";
-const redirectURI = "http://mixin.surge.sh/";
+const redirectURI = "https://mixin.surge.sh/";
 let accessToken;
 
 const Spotify = {

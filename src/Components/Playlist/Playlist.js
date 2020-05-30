@@ -21,13 +21,15 @@ function Playlist(props) {
                     onSave={props.onSave}
                     onClear={props.onClear}
                 />}
-                <TrackList id="TrackList-right"
-                           tracks={props.playlist.tracks}
-                           onRemove={props.onRemove}
-                           isRemoval={true}
-                           onPlay={props.onPlay}
-                           onPause={props.onPause}
-                           playingTrack={props.playingTrack}/>
+                {!!props.playlist.tracks.length ?
+                    <TrackList id="TrackList-right"
+                               tracks={props.playlist.tracks}
+                               onRemove={props.onRemove}
+                               isRemoval={true}
+                               onPlay={props.onPlay}
+                               onPause={props.onPause}
+                               playingTrack={props.playingTrack}/>
+                    : <h2>Time to add some tracks! </h2>}
             </div>
         );
 

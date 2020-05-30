@@ -78,9 +78,9 @@ class App extends React.Component {
             let updatedRecommendedTracks = this.state.recommended.tracks;
             updatedRecommendedTracks.splice(this.state.recommended.tracks.indexOf(track), 1);
             this.setState({
-                searchResults: {tracks: updatedSearchResults},
-                recommendedTracks: {tracks: updatedRecommendedTracks},
-                playlist: {tracks: updatedPlaylistTracks}
+                searchResults: {...this.state.searchResults, tracks: updatedSearchResults},
+                recommendedTracks: {...this.state.recommendedTracks, tracks: updatedRecommendedTracks},
+                playlist: {...this.state.playlist, tracks: updatedPlaylistTracks}
             });
         }
     }
@@ -92,7 +92,7 @@ class App extends React.Component {
             }
             let updatedPlaylistTracks = this.state.playlist.tracks;
             updatedPlaylistTracks.splice(this.state.playlist.tracks.indexOf(track), 1);
-            this.setState({playlist: {tracks: updatedPlaylistTracks}});
+            this.setState({playlist: {...this.state.playlist, tracks: updatedPlaylistTracks}});
         }
     }
 

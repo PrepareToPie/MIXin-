@@ -1,21 +1,19 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {TrackList} from "../../TrackList/TrackList";
 import Loading from "../../Loading/Loading";
+import AppContext from "../../../Contexts/AppContext";
 
-function RecommendedResults(props) {
-    if (props.recommended.loading) {
+function RecommendedResults() {
+    const {recommendedContext: {recommended}} = useContext(AppContext)
+
+    if (recommended.isLoading) {
         return <Loading/>;
     }
-    if (props.recommended.tracks.length) {
+    if (recommended.tracks.length) {
         return (
             <div className="SearchResults">
                 <TrackList
-                    tracks={props.recommended.tracks}
-                    onAdd={props.onAdd}
-                    onPlay={props.onPlay}
-                    onPause={props.onPause}
-                    isRemoval={false}
-                    playingTrack={props.playingTrack}/>
+                    tracks={recommended.tracks}/>
             </div>
         );
     } else {

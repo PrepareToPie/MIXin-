@@ -1,88 +1,60 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {useContext, useState} from 'react';
 import './Playlist.css';
 import Loading from "../Loading/Loading";
 import PlaylistWindowHeader from "./PlaylistWindowHeader/PlaylistWindowHeader";
 import PlaylistsList from "./PlaylistsList/PlaylistsList";
 import Playlist from "./Playlist";
+import AppContext from "../../Contexts/AppContext";
 
-export class PlaylistWindow extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            displayedPlaylist: "users"
-        }
-        this.displayCustomPlaylist = this.displayCustomPlaylist.bind(this);
-        this.displayUsersPlaylists = this.displayUsersPlaylists.bind(this);
+export function PlaylistWindow() {
+    const [displayedPlaylist, setDisplayedPlaylist] = useState("users")
+    const {userPlaylistsContext: {getUserPlaylists}, playlistContext: {playlist}} = useContext(AppContext)
+
+    const displayCustomPlaylist = () => {
+        setDisplayedPlaylist("custom");
     }
 
-    displayCustomPlaylist() {
-        this.setState({displayedPlaylist: "custom"});
-    }
-
-    displayUsersPlaylists() {
-        this.props.onUsersPlaylists();
-        this.setState({displayedPlaylist: "users"});
+    const displayUsersPlaylists = () => {
+        getUserPlaylists();
+        setDisplayedPlaylist("users");
     }
 
 
-    render() {
-        if (this.props.playlist.saving) {
-            return (
-                <div className="playlist-window">
-                    <Loading>
-                        <p>Saving your playlist to <span id="spotify">Spotify</span></p>
-                    </Loading>
-                </div>
-            );
-        } else {
-            switch (this.state.displayedPlaylist) {
-                case "users":
-                    return (
-                        <div className="playlist-window">
-                            <PlaylistWindowHeader
-                                playlistName={this.props.playlist.name}
-                                displayedPlaylist={this.state.displayedPlaylist}
-                                onDisplayCustomPlaylist={this.displayCustomPlaylist}
-                                onDisplayUsersPLaylists={this.displayUsersPlaylists}/>
-                            <PlaylistsList
-                                playlists={this.props.userPlaylists.playlists}
-                                isLoading={this.props.userPlaylists.loading}
-                                onRemove={this.props.onRemove}
-                                isRemoval={true}
-                                onPlaylistGet={this.props.onPlaylistGet}
-                                onDisplayCustomPlaylist={this.displayCustomPlaylist}/>
-                        </div>
-                    );
-                default:
-                    return (
-                        <div className="playlist-window">
-                            <PlaylistWindowHeader
-                                playlistName={this.props.playlist.name}
-                                displayedPlaylist={this.state.displayedPlaylist}
-                                onDisplayCustomPlaylist={this.displayCustomPlaylist}
-                                onDisplayUsersPLaylists={this.displayUsersPlaylists}/>
-                            <Playlist
-                                playlist={this.props.playlist}
-                                userPlaylists={this.props.userPlaylists}
-                                onRemove={this.props.onRemove}
-                                onNameChange={this.props.onNameChange}
-                                onSave={this.props.onSave}
-                                onClear={this.props.onClear}
-                                onTogglePublic={this.props.onTogglePublic}
-                                onPlay={this.props.onPlay}
-                                onPause={this.props.onPause}
-                                playingTrack={this.props.playingTrack}/>
-                        </div>
-                    );
+    if (playlist.isSaving) {
+        return (
+            <div className="playlist-window">
+                <Loading>
+                    <p>Saving your playlist to <span id="spotify">Spotify</span></p>
+                </Loading>
+            </div>
+        );
+    } else {
+        switch (displayedPlaylist) {
+            case "users":
+                return (
+                    <div className="playlist-window">
+                        <PlaylistWindowHeader
+                            playlistName={playlist.name}
+                            displayedPlaylist={displayedPlaylist}
+                            onDisplayCustomPlaylist={displayCustomPlaylist}
+                            onDisplayUsersPLaylists={displayUsersPlaylists}/>
+                        <PlaylistsList
+                            onDisplayCustomPlaylist={displayCustomPlaylist}/>
+                    </div>
+                );
+            default:
+                return (
+                    <div className="playlist-window">
+                        <PlaylistWindowHeader
+                            playlistName={playlist.name}
+                            displayedPlaylist={displayedPlaylist}
+                            onDisplayCustomPlaylist={displayCustomPlaylist}
+                            onDisplayUsersPLaylists={displayUsersPlaylists}/>
+                        <Playlist
+                            playlist={playlist}/>
+                    </div>
+                );
 
-            }
         }
     }
-}
-
-PlaylistWindow.propTypes = {
-    onRemove: PropTypes.func.isRequired,
-    onNameChange: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired
 }

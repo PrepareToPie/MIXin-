@@ -1,26 +1,19 @@
-import React, {Component} from 'react';
+import React, {useContext} from 'react';
 import {PlaylistPublicAction} from "./PlaylistAction/PlaylistPublicAction";
+import AppContext from "../../Contexts/AppContext";
 
-class PlaylistDetails extends Component {
-    constructor(props) {
-        super(props);
-        this.handleNameChange = this.handleNameChange.bind(this);
-    }
+function PlaylistDetails({playlistName, onTogglePublic, isPublic, changePlaylistName}) {
 
-    handleNameChange(event) {
-        this.props.onNameChange(event.target.value);
-    }
-
-    render() {
-        return (
-            <div className="playlist-details">
-                <input placeholder="Playlist name" value={this.props.playlistName}
-                       onChange={this.handleNameChange}/>
-                <PlaylistPublicAction onTogglePublic={this.props.onTogglePublic}
-                                      isPublic={this.props.isPublic}/>
-            </div>
-        );
-    }
+    return (
+        <div className="playlist-details">
+            <input placeholder="Playlist name" value={playlistName}
+                   onChange={(event) => {
+                       changePlaylistName(event.target.value)
+                   }}/>
+            <PlaylistPublicAction onTogglePublic={onTogglePublic}
+                                  isPublic={isPublic}/>
+        </div>
+    );
 }
 
 export default PlaylistDetails;

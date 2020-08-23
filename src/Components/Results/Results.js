@@ -1,60 +1,43 @@
-import React, {Component} from 'react';
+import React, {useContext, useState} from 'react';
 import {SearchResults} from "./SearchResults/SearchResults";
 import RecommendedResults from "./RecommendedResults/RecommendedResults";
 import './Results.css';
 import ResultsHeader from "./ResultsHeader/ResultsHeader";
+import AppContext from "../../Contexts/AppContext";
 
-class Results extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            displayResults: "search",
+function Results() {
+    const [displayResults, setDisplayResults] = useState("search")
+    const {recommendedContext: {getRecommendations}} = useContext(AppContext)
 
-        };
-        this.displayRecommendedResults = this.displayRecommendedResults.bind(this);
-        this.displaySearchResults = this.displaySearchResults.bind(this);
+
+    const displaySearchResults = () => {
+        setDisplayResults("search");
     }
 
-    displaySearchResults() {
-        this.setState({displayResults: "search"});
+    const displayRecommendedResults = () => {
+        getRecommendations()
+        setDisplayResults("recommended");
     }
 
-    displayRecommendedResults() {
-        this.props.onRecommend();
-        this.setState({displayResults: "recommended"});
-    }
-
-    render() {
-        switch (this.state.displayResults) {
-            case "recommended":
-                return (
-                    <div className="Results">
-                        <ResultsHeader
-                            activeDisplay={this.state.displayResults}
-                            onDisplaySearchResults={this.displaySearchResults}
-                            onDisplayRecommendedResults={this.displayRecommendedResults}/>
-                        <RecommendedResults
-                            recommended={this.props.recommended}
-                            onAdd={this.props.onAdd}
-                            onPlay={this.props.onPlay}
-                            onPause={this.props.onPause}
-                            playingTrack={this.props.playingTrack}/>
-                    </div>);
-            default:
-                return (
-                    <div className="Results">
-                        <ResultsHeader
-                            activeDisplay={this.state.displayResults}
-                            onDisplaySearchResults={this.displaySearchResults}
-                            onDisplayRecommendedResults={this.displayRecommendedResults}/>
-                        <SearchResults
-                            searchResults={this.props.searchResults}
-                            onAdd={this.props.onAdd}
-                            onPlay={this.props.onPlay}
-                            onPause={this.props.onPause}
-                            playingTrack={this.props.playingTrack}/>
-                    </div>);
-        }
+    switch (displayResults) {
+        case "recommended":
+            return (
+                <div className="Results">
+                    <ResultsHeader
+                        activeDisplay={displayResults}
+                        onDisplaySearchResults={displaySearchResults}
+                        onDisplayRecommendedResults={displayRecommendedResults}/>
+                    <RecommendedResults/>
+                </div>);
+        default:
+            return (
+                <div className="Results">
+                    <ResultsHeader
+                        activeDisplay={displayResults}
+                        onDisplaySearchResults={displaySearchResults}
+                        onDisplayRecommendedResults={displayRecommendedResults}/>
+                    <SearchResults/>
+                </div>);
     }
 }
 

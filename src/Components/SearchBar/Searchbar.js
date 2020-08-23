@@ -1,26 +1,18 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './SearchBar.css';
+import AppContext from "../../Contexts/AppContext";
 
-export class SearchBar extends React.Component {
-    constructor(props) {
-        super(props);
-        this.search = this.search.bind(this);
-        this.handleTermChange = this.handleTermChange.bind(this);
+export function SearchBar() {
+
+    const {SearchContext: {search}} = useContext(AppContext)
+
+    const handleTermChange = (event) => {
+        search(event.target.value);
     }
 
-    search(term) {
-        this.props.onSearch(term);
-    }
-
-    handleTermChange(event) {
-        this.search(event.target.value);
-    }
-
-    render() {
-        return (
-            <div className="SearchBar">
-                <input placeholder="Track, artist or album" onChange={this.handleTermChange}/>
-            </div>
-        );
-    }
+    return (
+        <div className="SearchBar">
+            <input placeholder="Track, artist or album" onChange={handleTermChange}/>
+        </div>
+    );
 }

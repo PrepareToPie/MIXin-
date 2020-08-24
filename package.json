@@ -1,6 +1,6 @@
 {
-  "name": "jamming",
-  "version": "0.1.0",
+  "name": "mixin",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@bit/mhnpd.react-loader-spinner.audio": "^2.2.0",

@@ -1,10 +1,10 @@
 import React from 'react';
-import {TrackList} from "../../TrackList/TrackList";
+import { TrackList } from "../../TrackList/TrackList";
 import Loading from "../../Loading/Loading";
 
 function RecommendedResults(props) {
     if (props.recommended.loading) {
-        return <Loading/>;
+        return <Loading />;
     }
     if (props.recommended.tracks.length) {
         return (
@@ -15,7 +15,7 @@ function RecommendedResults(props) {
                     onPlay={props.onPlay}
                     onPause={props.onPause}
                     isRemoval={false}
-                    playingTrack={props.playingTrack}/>
+                    playingTrack={props.playingTrack} />
             </div>
         );
     } else {

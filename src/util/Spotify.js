@@ -78,7 +78,7 @@ const Spotify = {
             Authorization: `Bearer ${accessToken[1]}`,
             'Content-Type': 'application/json'
         }
-        return fetch('https://api.spotify.com/v1/me', {headers: headers})
+        return fetch('https://api.spotify.com/v1/me', { headers: headers })
             // Convert the response to JSON and save the response id parameter to the user’s ID
             .then(response => response.json())
             .then(jsonResponse => {
@@ -99,7 +99,7 @@ const Spotify = {
             return fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
                 method: 'POST',
                 headers: headers,
-                body: JSON.stringify({name: playlistName})
+                body: JSON.stringify({ name: playlistName })
             }).then(response => response.json())
                 .then(jsonResponse => {
                     let playlistID;
@@ -108,7 +108,7 @@ const Spotify = {
                     return fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
                         method: 'POST',
                         headers: headers,
-                        body: JSON.stringify({uris: trackURIs})
+                        body: JSON.stringify({ uris: trackURIs })
                     }).then(response => response.json())
                         .then(jsonResponse => {
                             playlistID = jsonResponse.id
@@ -122,7 +122,7 @@ const Spotify = {
             Authorization: `Bearer ${accessToken[1]}`,
             'Content-Type': 'application/json'
         };
-        return fetch(`https://api.spotify.com/v1/me/playlists`, {headers: headers})
+        return fetch(`https://api.spotify.com/v1/me/playlists`, { headers: headers })
             .then(response => response.json())
             .then(jsonResponse => {
                 if (jsonResponse.items) {
@@ -143,7 +143,7 @@ const Spotify = {
             Authorization: `Bearer ${accessToken[1]}`,
             'Content-Type': 'application/json'
         };
-        return fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {headers: headers})
+        return fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, { headers: headers })
             .then(response => response.json())
             .then(jsonResponse => {
                 if (jsonResponse.items) {
@@ -173,7 +173,7 @@ const Spotify = {
         return fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistId}/tracks`, {
             method: 'DELETE',
             headers: headers,
-            body: JSON.stringify({tracks: trackURIs})
+            body: JSON.stringify({ tracks: trackURIs })
         }).then(response => response.json())
             .then(jsonResponse => jsonResponse.snapshot_id ? "deleted" : "error");
     },
@@ -187,7 +187,7 @@ const Spotify = {
         return fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistId}/tracks`, {
             method: 'PUT',
             headers: headers,
-            body: JSON.stringify({uris: trackURIs})
+            body: JSON.stringify({ uris: trackURIs })
         }).then(response => response.json())
             .then(jsonResponse => jsonResponse);
     },

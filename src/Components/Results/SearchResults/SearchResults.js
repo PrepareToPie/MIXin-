@@ -1,12 +1,11 @@
 import React from 'react';
 import './SearchResults.css';
-import PropTypes from 'prop-types';
-import {TrackList} from '../../TrackList/TrackList';
+import { TrackList } from '../../TrackList/TrackList';
 import Loading from "../../Loading/Loading";
 
 export function SearchResults(props) {
     if (props.searchResults.loading) {
-        return <Loading/>;
+        return <Loading />;
     } else if (props.searchResults.tracks.length) {
         return (
             <div className="SearchResults">
@@ -17,15 +16,10 @@ export function SearchResults(props) {
                     onPause={props.onPause}
                     onLoading={props.onLoading}
                     isRemoval={false}
-                    playingTrack={props.playingTrack}/>
+                    playingTrack={props.playingTrack} />
             </div>
         );
     } else {
         return <div className="SearchResults"><h2>...</h2></div>
     }
-}
-
-SearchResults.propTypes = {
-    searchResults: PropTypes.array.isRequired,
-    onAdd: PropTypes.func.isRequired
 }

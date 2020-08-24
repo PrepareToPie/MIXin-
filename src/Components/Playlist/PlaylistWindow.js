@@ -7,22 +7,17 @@ import PlaylistsList from "./PlaylistsList/PlaylistsList";
 import Playlist from "./Playlist";
 
 export class PlaylistWindow extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            displayedPlaylist: "users"
-        }
-        this.displayCustomPlaylist = this.displayCustomPlaylist.bind(this);
-        this.displayUsersPlaylists = this.displayUsersPlaylists.bind(this);
+    state = {
+        displayedPlaylist: "users"
     }
 
-    displayCustomPlaylist() {
-        this.setState({displayedPlaylist: "custom"});
+    displayCustomPlaylist = () => {
+        this.setState({ displayedPlaylist: "custom" });
     }
 
-    displayUsersPlaylists() {
+    displayUsersPlaylists = () => {
         this.props.onUsersPlaylists();
-        this.setState({displayedPlaylist: "users"});
+        this.setState({ displayedPlaylist: "users" });
     }
 
 
@@ -44,14 +39,14 @@ export class PlaylistWindow extends React.Component {
                                 playlistName={this.props.playlist.name}
                                 displayedPlaylist={this.state.displayedPlaylist}
                                 onDisplayCustomPlaylist={this.displayCustomPlaylist}
-                                onDisplayUsersPLaylists={this.displayUsersPlaylists}/>
+                                onDisplayUsersPLaylists={this.displayUsersPlaylists} />
                             <PlaylistsList
                                 playlists={this.props.userPlaylists.playlists}
                                 isLoading={this.props.userPlaylists.loading}
                                 onRemove={this.props.onRemove}
                                 isRemoval={true}
                                 onPlaylistGet={this.props.onPlaylistGet}
-                                onDisplayCustomPlaylist={this.displayCustomPlaylist}/>
+                                onDisplayCustomPlaylist={this.displayCustomPlaylist} />
                         </div>
                     );
                 default:
@@ -61,7 +56,7 @@ export class PlaylistWindow extends React.Component {
                                 playlistName={this.props.playlist.name}
                                 displayedPlaylist={this.state.displayedPlaylist}
                                 onDisplayCustomPlaylist={this.displayCustomPlaylist}
-                                onDisplayUsersPLaylists={this.displayUsersPlaylists}/>
+                                onDisplayUsersPLaylists={this.displayUsersPlaylists} />
                             <Playlist
                                 playlist={this.props.playlist}
                                 userPlaylists={this.props.userPlaylists}
@@ -72,17 +67,11 @@ export class PlaylistWindow extends React.Component {
                                 onTogglePublic={this.props.onTogglePublic}
                                 onPlay={this.props.onPlay}
                                 onPause={this.props.onPause}
-                                playingTrack={this.props.playingTrack}/>
+                                playingTrack={this.props.playingTrack} />
                         </div>
                     );
 
             }
         }
     }
-}
-
-PlaylistWindow.propTypes = {
-    onRemove: PropTypes.func.isRequired,
-    onNameChange: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired
 }

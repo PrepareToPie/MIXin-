@@ -1,18 +1,14 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 class PlaylistWindowHeaderItem extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isJumpy: "",
-        }
-        this.handleClick = this.handleClick.bind(this);
+    state = {
+        isJumpy: "",
     }
 
-    handleClick() {
-        this.setState({isJumpy: "jump"});
+    handleClick = () => {
+        this.setState({ isJumpy: "jump" });
         setTimeout(() => {
-            this.setState({isJumpy: ""});
+            this.setState({ isJumpy: "" });
         }, 500);
         this.props.onClick();
     }

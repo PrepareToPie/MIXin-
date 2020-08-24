@@ -1,27 +1,22 @@
-import React, {Component} from 'react';
-import {SearchResults} from "./SearchResults/SearchResults";
+import React, { Component } from 'react';
+import { SearchResults } from "./SearchResults/SearchResults";
 import RecommendedResults from "./RecommendedResults/RecommendedResults";
 import './Results.css';
 import ResultsHeader from "./ResultsHeader/ResultsHeader";
 
 class Results extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            displayResults: "search",
+    state = {
+        displayResults: "search",
 
-        };
-        this.displayRecommendedResults = this.displayRecommendedResults.bind(this);
-        this.displaySearchResults = this.displaySearchResults.bind(this);
     }
 
-    displaySearchResults() {
-        this.setState({displayResults: "search"});
+    displaySearchResults = () => {
+        this.setState({ displayResults: "search" });
     }
 
-    displayRecommendedResults() {
+    displayRecommendedResults = () => {
         this.props.onRecommend();
-        this.setState({displayResults: "recommended"});
+        this.setState({ displayResults: "recommended" });
     }
 
     render() {
@@ -32,13 +27,13 @@ class Results extends Component {
                         <ResultsHeader
                             activeDisplay={this.state.displayResults}
                             onDisplaySearchResults={this.displaySearchResults}
-                            onDisplayRecommendedResults={this.displayRecommendedResults}/>
+                            onDisplayRecommendedResults={this.displayRecommendedResults} />
                         <RecommendedResults
                             recommended={this.props.recommended}
                             onAdd={this.props.onAdd}
                             onPlay={this.props.onPlay}
                             onPause={this.props.onPause}
-                            playingTrack={this.props.playingTrack}/>
+                            playingTrack={this.props.playingTrack} />
                     </div>);
             default:
                 return (
@@ -46,13 +41,13 @@ class Results extends Component {
                         <ResultsHeader
                             activeDisplay={this.state.displayResults}
                             onDisplaySearchResults={this.displaySearchResults}
-                            onDisplayRecommendedResults={this.displayRecommendedResults}/>
+                            onDisplayRecommendedResults={this.displayRecommendedResults} />
                         <SearchResults
                             searchResults={this.props.searchResults}
                             onAdd={this.props.onAdd}
                             onPlay={this.props.onPlay}
                             onPause={this.props.onPause}
-                            playingTrack={this.props.playingTrack}/>
+                            playingTrack={this.props.playingTrack} />
                     </div>);
         }
     }

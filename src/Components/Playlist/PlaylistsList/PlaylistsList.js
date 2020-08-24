@@ -1,10 +1,10 @@
 import React from 'react';
-import {PlaylistListItem} from "./PlaylistListItem";
+import { PlaylistListItem } from "./PlaylistListItem";
 import Loading from "../../Loading/Loading";
 
 function PlaylistsList(props) {
     if (props.isLoading) {
-        return <Loading/>;
+        return <Loading />;
     } else {
         return (
             <div className="TrackList">
@@ -13,7 +13,7 @@ function PlaylistsList(props) {
                         playlist={playlist}
                         key={playlist.id}
                         onPlaylistGet={props.onPlaylistGet}
-                        onDisplayCustomPlaylist={props.onDisplayCustomPlaylist}/>)}
+                        onDisplayCustomPlaylist={props.onDisplayCustomPlaylist} />)}
             </div>
         );
     }

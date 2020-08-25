@@ -1,7 +1,7 @@
 import React from 'react';
 import './SearchResults.css';
-import { TrackList } from '../../TrackList/TrackList';
-import Loading from "../../Loading/Loading";
+import { TrackList } from '../TrackList/TrackList';
+import Loading from "../Loading/Loading";
 
 export function SearchResults(props) {
     if (props.searchResults.loading) {

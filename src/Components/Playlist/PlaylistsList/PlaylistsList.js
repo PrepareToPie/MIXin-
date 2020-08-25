@@ -12,8 +12,7 @@ function PlaylistsList(props) {
                     <PlaylistListItem
                         playlist={playlist}
                         key={playlist.id}
-                        onPlaylistGet={props.onPlaylistGet}
-                        onDisplayCustomPlaylist={props.onDisplayCustomPlaylist} />)}
+                        onPlaylistGet={props.onPlaylistGet} />)}
             </div>
         );
     }

@@ -2,10 +2,18 @@ import React from 'react';
 import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { PlaylistWindow } from '../Playlist/PlaylistWindow';
+import '../Playlist/Playlist.css';
 import { SearchBar } from '../SearchBar/Searchbar';
 import Spotify from '../../util/Spotify';
-import Results from "../Results/Results";
+import "../Results/Results.css";
+import { Window } from '../Window/Window';
+import WindowHeader from '../Window/WindowHeader';
+import WindowHeaderItem from '../Window/WindowHeaderItem';
+import WindowBody from '../Window/WindowBody';
+import { SearchResults } from '../SearchResults/SearchResults';
+import RecommendedResults from '../Results/RecommendedResults';
+import PlaylistsList from '../Playlist/PlaylistsList/PlaylistsList';
+import Playlist from '../Playlist/Playlist';
 
 
 class App extends React.Component {
@@ -221,28 +229,67 @@ class App extends React.Component {
                 <div className="App">
                     <SearchBar onSearch={this.search} />
                     <div className="App-playlist">
-                        <Results
-                            searchResults={this.state.searchResults}
-                            recommended={this.state.recommended}
-                            onAdd={this.addTrack}
-                            onPlay={this.playTrack}
-                            onPause={this.pauseTrack}
-                            onPauseAll={this.pauseAll}
-                            onRecommend={this.getRecommendations}
-                            playingTrack={this.state.currentlyPlayingTrack} />
-                        <PlaylistWindow
-                            playlist={this.state.playlist}
-                            userPlaylists={this.state.userPlaylists}
-                            onUsersPlaylists={this.getUserPlaylists}
-                            onPlaylistGet={this.getPlaylistTracks}
-                            onRemove={this.removeTrack}
-                            onNameChange={this.updatePlaylistName}
-                            onTogglePublic={this.togglePublic}
-                            onSave={this.savePlaylist}
-                            onClear={this.clearPlaylist}
-                            onPlay={this.playTrack}
-                            onPause={this.pauseTrack}
-                            playingTrack={this.state.currentlyPlayingTrack} />
+                        <Window className="Results" initialDispay={0}>
+                            <WindowHeader>
+                                <WindowHeaderItem>
+                                    Search results
+                                </WindowHeaderItem>
+                                <WindowHeaderItem
+                                    id="recommend"
+                                    onClick={this.getRecommendations}>
+                                    Recommended
+                                </WindowHeaderItem>
+                            </WindowHeader>
+                            <WindowBody>
+                                <SearchResults
+                                    searchResults={this.state.searchResults}
+                                    onAdd={this.addTrack}
+                                    onPlay={this.playTrack}
+                                    onPause={this.pauseTrack}
+                                    playingTrack={this.state.currentlyPlayingTrack} />
+
+                                <RecommendedResults
+                                    recommended={this.state.recommended}
+                                    onAdd={this.addTrack}
+                                    onPlay={this.playTrack}
+                                    onPause={this.pauseTrack}
+                                    playingTrack={this.state.currentlyPlayingTrack} />
+                            </WindowBody>
+                        </Window>
+
+                        <Window className="playlist-window"
+                            initialDispay={0}
+                            isSaving={this.state.playlist.saving}>
+                            <WindowHeader>
+                                <WindowHeaderItem onClick={this.getUserPlaylists}>
+                                    Your playlists
+                                </WindowHeaderItem>
+                                <WindowHeaderItem
+                                    id="recommend">
+                                    Current playlist
+                                </WindowHeaderItem>
+                            </WindowHeader>
+                            <WindowBody>
+                                <PlaylistsList
+                                    playlists={this.state.userPlaylists.playlists}
+                                    isLoading={this.state.userPlaylists.loading}
+                                    onRemove={this.removeTrack}
+                                    isRemoval={true}
+                                    onPlaylistGet={this.getPlaylistTracks} />
+                                <Playlist
+                                    playlist={this.state.playlist}
+                                    userPlaylists={this.state.userPlaylists}
+                                    onRemove={this.removeTrack}
+                                    onNameChange={this.updatePlaylistName}
+                                    onSave={this.savePlaylist}
+                                    onClear={this.clearPlaylist}
+                                    onTogglePublic={this.togglePublic}
+                                    onPlay={this.playTrack}
+                                    onPause={this.pauseTrack}
+                                    playingTrack={this.state.currentlyPlayingTrack} />
+
+                            </WindowBody>
+                        </Window>
                     </div>
                 </div>
             </div>

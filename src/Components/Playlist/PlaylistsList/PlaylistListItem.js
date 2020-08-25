@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-regular-svg-icons";
+import WindowContext from "../../Window/Window";
 
 export function PlaylistListItem(props) {
+    const { setActiveDisplay } = useContext(WindowContext)
 
     const getTracks = () => {
         props.onPlaylistGet(props.playlist);
-        props.onDisplayCustomPlaylist();
+        setActiveDisplay(1)
     }
 
     return props.playlist.id ? (

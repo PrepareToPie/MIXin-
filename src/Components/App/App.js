@@ -42,6 +42,8 @@ class App extends React.Component {
         currentlyPlayingTrack: ''
     };
 
+    playbackTimeout = () => { }
+
     search = (term) => {
         this.pauseTrack();
         this.setState({ searchResults: { loading: true } });
@@ -95,17 +97,18 @@ class App extends React.Component {
 
     playTrack = (track) => {
         if (this.state.currentlyPlayingTrack) {
-            this.pauseAll();
+            this.pauseTrack();
         }
         track.audio.play();
         this.setState({ currentlyPlayingTrack: track.id });
-        setTimeout(() => {
+        this.playbackTimeout = setTimeout(() => {
             this.pauseTrack(track)
-        }, 30000);
+        }, 30000 - track.audio.currentTime * 1000)
     }
 
     pauseTrack = (track) => {
         if (this.state.currentlyPlayingTrack) {
+            clearTimeout(this.playbackTimeout)
             if (track) {
                 track.audio.pause();
                 this.setState({ currentlyPlayingTrack: '' });
@@ -269,7 +272,7 @@ class App extends React.Component {
                                 </WindowHeaderItem>
                                 <WindowHeaderItem
                                     id="recommend">
-                                    Current playlist
+                                    {this.state.playlist.name}
                                 </WindowHeaderItem>
                             </WindowHeader>
                             <WindowBody>

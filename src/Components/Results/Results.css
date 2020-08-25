@@ -1,95 +1,97 @@
 .Results {
-    width: 47%;
-    max-height: 650px;
-    min-height: 500px;
-    overflow-y: hidden;
-    padding: .88rem .5rem 0 .5rem;
-    background-color: rgba(1, 12, 63, 0.7);
-    box-shadow: 0 4px 2px 2px #000000;
+  display: flex;
+  flex-direction: column;
+  width: 47%;
+  max-height: 650px;
+  min-height: 500px;
+  overflow-y: hidden;
+  padding: 0.88rem 0.5rem 0 0.5rem;
+  background-color: rgba(1, 12, 63, 0.7);
+  box-shadow: 0 4px 2px 2px #000000;
 }
 
 .Results ul li {
-    display: inline-block;
-    margin: 1rem;
-    font-family: 'Poppins', sans-serif;
-    color: #6c41ec;
-    cursor: pointer;
-    font-size: 1.55rem;
+  display: inline-block;
+  margin: 1rem;
+  font-family: "Poppins", sans-serif;
+  color: #6c41ec;
+  cursor: pointer;
+  font-size: 1.55rem;
 }
 
 .Results ul li:hover {
-    opacity: .9;
+  opacity: 0.9;
 }
 
 .Results ul li:active {
-    opacity: .9;
+  opacity: 0.9;
 }
 
 .Results-select {
-    width: 100%;
+  width: 100%;
 }
 
 .active {
-    color: #ffffff !important;
-    cursor: default !important;
+  color: #ffffff !important;
+  cursor: default !important;
 }
 
 .active:hover {
-    opacity: 1 !important;
+  opacity: 1 !important;
 }
 
 #recommend {
-    cursor: pointer !important;
+  cursor: pointer !important;
 }
 
 #recommend:hover {
-    opacity: .9 !important;
-    cursor: pointer !important;
+  opacity: 0.9 !important;
+  cursor: pointer !important;
 }
 
 .jump {
-    display: inline-block;
-    transform-origin: 50% 50%;
-    animation: jump .125s linear alternate infinite;
+  display: inline-block;
+  transform-origin: 50% 50%;
+  animation: jump 0.125s linear alternate infinite;
 }
 
 @keyframes jump {
-    0% {
-        transform: translate3d(0, 0, 0);
-    }
-    40% {
-        transform: translate3d(0, -30%, 0);
-    }
-    100% {
-        transform: translate3d(0, -40%, 0);
-    }
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  40% {
+    transform: translate3d(0, -30%, 0);
+  }
+  100% {
+    transform: translate3d(0, -40%, 0);
+  }
 }
 
 @media only screen and (max-width: 1092px) {
-    .Results ul li {
-        display: inline-block;
-        margin: .5rem 1rem;
-    }
+  .Results ul li {
+    display: inline-block;
+    margin: 0.5rem 1rem;
+  }
 
-    .Results-select {
-        margin-bottom: .5rem;
-    }
+  .Results-select {
+    margin-bottom: 0.5rem;
+  }
 }
 
 @media only screen and (max-width: 1020px) {
-    .Results {
-        width: 90%;
-        margin-bottom: 2rem;
-    }
+  .Results {
+    width: 90%;
+    margin-bottom: 2rem;
+  }
 }
 
 @media only screen and (max-width: 570px) {
-    .Results ul li {
-        display: inline-block;
-        margin: .5rem 1rem;
-    }
+  .Results ul li {
+    display: inline-block;
+    margin: 0.5rem 1rem;
+  }
 
-    .Results-select {
-        margin-bottom: .5rem;
-    }
+  .Results-select {
+    margin-bottom: 0.5rem;
+  }
 }

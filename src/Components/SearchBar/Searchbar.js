@@ -13,7 +13,7 @@ export function SearchBar(props) {
 
     return (
         <div className="SearchBar">
-            <input placeholder="Track, artist or album" onChange={handleTermChange} />
+            <input placeholder="Enter track, artist or album" onChange={handleTermChange} />
         </div>
     );
 }

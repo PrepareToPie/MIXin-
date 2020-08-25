@@ -1,57 +1,67 @@
 .SearchBar {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem 0;
+  width: 100%;
 }
 
 .SearchBar input {
-    width: 70%;
-    border: 0;
-    outline: 0;
-    background: transparent;
-    border-bottom: 1px solid #ccc;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.55rem;
-    color: #fff;
-    transition: transform .1s ease-in;
+  width: 70%;
+  height: 50px;
+  border: 10px;
+  outline: 0;
+  box-sizing: border-box;
+  padding: 0px 20px;
+  background: rgb(16 17 76);
+  font-family: "Poppins", sans-serif;
+  font-size: 1.55rem;
+  border-radius: 60px;
+  color: #fff;
+  transition: all 0.1s ease-in;
 }
 
 .SearchBar input::placeholder {
-    color: #ffffff;
-    opacity: .5;
+  color: #ffffff;
+  opacity: 0.6;
 }
 
 .SearchBar input:focus {
-    transform: scale(1.025);
+  width: 72%;
+  background: #ffffff;
+  color: #10114c;
 }
 
 .SearchButton {
-    cursor: pointer;
-    width: 8.11rem;
-    padding: .77rem 0;
-    border-radius: 54px;
-    background-color: #010c3f;
-    text-align: center;
-    font-size: .833rem;
-    transition: background-color .25s;
-    border: 0;
-    color: #fff;
-    font-weight: 500;
+  cursor: pointer;
+  width: 8.11rem;
+  padding: 0.77rem 0;
+  border-radius: 54px;
+  background-color: #010c3f;
+  text-align: center;
+  font-size: 0.833rem;
+  transition: background-color 0.25s;
+  border: 0;
+  color: #fff;
+  font-weight: 500;
 }
 
 .SearchButton:hover {
-    background-color: rgba(108, 65, 233, .7);
+  background-color: rgba(108, 65, 233, 0.7);
 }
 
 @media only screen and (max-width: 1020px) {
-    .SearchBar {
-        margin: 2rem 0;
-    }
+  .SearchBar {
+    margin: 2rem 0;
+  }
 }
 
 @media only screen and (max-width: 730px) {
-    .SearchBar input {
-        width: 90%;
-    }
+  .SearchBar input {
+    width: 94%;
+  }
+
+  .SearchBar input:focus {
+    width: 96%;
+  }
 }

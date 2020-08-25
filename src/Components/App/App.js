@@ -99,6 +99,9 @@ class App extends React.Component {
         }
         track.audio.play();
         this.setState({ currentlyPlayingTrack: track.id });
+        setTimeout(() => {
+            this.pauseTrack(track)
+        }, 30000);
     }
 
     pauseTrack = (track) => {

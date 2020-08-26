@@ -39,7 +39,10 @@ class App extends React.Component {
             loading: false,
             saving: false
         },
-        currentlyPlayingTrack: ''
+        currentlyPlayingTrack: {
+            id: '',
+            audio: new Audio()
+        }
     };
 
     playbackTimeout = () => { }
@@ -86,8 +89,8 @@ class App extends React.Component {
 
     removeTrack = (track) => {
         if (this.state.playlist.tracks.find(savedTrack => savedTrack.id === track.id)) {
-            if (this.state.currentlyPlayingTrack === track.id) {
-                this.pauseTrack(track);
+            if (this.state.currentlyPlayingTrack.id === track.id) {
+                this.pauseTrack();
             }
             let updatedPlaylistTracks = this.state.playlist.tracks;
             updatedPlaylistTracks.splice(this.state.playlist.tracks.indexOf(track), 1);
@@ -100,7 +103,7 @@ class App extends React.Component {
             this.pauseTrack();
         }
         track.audio.play();
-        this.setState({ currentlyPlayingTrack: track.id });
+        this.setState({ currentlyPlayingTrack: track });
         this.playbackTimeout = setTimeout(() => {
             this.pauseTrack(track)
         }, 30000 - track.audio.currentTime * 1000)
@@ -111,21 +114,22 @@ class App extends React.Component {
             clearTimeout(this.playbackTimeout)
             if (track) {
                 track.audio.pause();
-                this.setState({ currentlyPlayingTrack: '' });
+                this.setState({
+                    currentlyPlayingTrack: {
+                        id: '',
+                        audio: new Audio()
+                    }
+                });
             } else {
-                let playingTrack = this.state.playlist.tracks.find(playlistTrack => this.state.currentlyPlayingTrack === playlistTrack.id) || this.state.searchResults.tracks.find(searchResult => this.state.currentlyPlayingTrack === searchResult.id || this.state.recommended.tracks.find(recommendedTrack => this.state.currentlyPlayingTrack === recommendedTrack.id));
-                if (playingTrack) {
-                    playingTrack.audio.pause();
-                }
-                this.setState({ currentlyPlayingTrack: '' });
+                this.state.currentlyPlayingTrack.audio.pause();
+                this.setState({
+                    currentlyPlayingTrack: {
+                        id: '',
+                        audio: new Audio()
+                    }
+                });
             }
         }
-    }
-
-    pauseAll = () => {
-        this.state.playlist.tracks.forEach(track => track.audio.pause());
-        this.state.searchResults.tracks.forEach(track => track.audio.pause());
-        this.state.recommended.tracks.forEach(track => track.audio.pause());
     }
 
     updatePlaylistName = (name) => {
@@ -207,6 +211,7 @@ class App extends React.Component {
         Spotify.getPlaylistTracks(playlist.id).then(tracks => {
             playlist.tracks = tracks;
             this.setState({ playlist: { ...playlist, loading: false } });
+            this.getRecommendations()
         });
     }
 
@@ -217,7 +222,7 @@ class App extends React.Component {
         this.setState({ playlist: updatedPlaylist });
     }
 
-    componentWillMount = () => {
+    componentDidMount = () => {
         Spotify.getAccessToken();
         this.getUserPlaylists();
     }
@@ -252,14 +257,14 @@ class App extends React.Component {
                                     onAdd={this.addTrack}
                                     onPlay={this.playTrack}
                                     onPause={this.pauseTrack}
-                                    playingTrack={this.state.currentlyPlayingTrack} />
+                                    playingTrack={this.state.currentlyPlayingTrack.id} />
 
                                 <RecommendedResults
                                     recommended={this.state.recommended}
                                     onAdd={this.addTrack}
                                     onPlay={this.playTrack}
                                     onPause={this.pauseTrack}
-                                    playingTrack={this.state.currentlyPlayingTrack} />
+                                    playingTrack={this.state.currentlyPlayingTrack.id} />
                             </WindowBody>
                         </Window>
 
@@ -292,7 +297,7 @@ class App extends React.Component {
                                     onTogglePublic={this.togglePublic}
                                     onPlay={this.playTrack}
                                     onPause={this.pauseTrack}
-                                    playingTrack={this.state.currentlyPlayingTrack} />
+                                    playingTrack={this.state.currentlyPlayingTrack.id} />
 
                             </WindowBody>
                         </Window>
